@@ -1,0 +1,14 @@
+# Ignore local environment variables containing passwords/keys
+.env
+.env.local
+
+# Ignore SQLite databases or internal n8n data stores
+*.db
+*.sqlite
+matrix/
+storage/
+n8n_data/
+ollama/
+
+# Ignore system and container logs
+*.log
