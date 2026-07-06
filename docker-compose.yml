@@ -7,8 +7,9 @@ services:
     ports:
       - "5678:5678"
     environment:
-      - N8N_HOST=0.0.0.0
+      - N8N_HOST=10.106.10.243
       - N8N_PORT=5678
+      - WEBHOOK_URL=http://10.10.106.243:5678/
       - N8N_PROTOCOL=http
       - N8N_BASIC_AUTH_ACTIVE=false
       - N8N_SECURE_COOKIE=false
@@ -18,19 +19,21 @@ services:
 
       # ✅ IMPORTANT: allow reading files
       - N8N_FILESYSTEM_ACCESS_MODE=read_write
-      - N8N_FILESYSTEM_ALLOW_LIST=/files
+      - N8N_FILESYSTEM_ALLOW_LIST=/home/node/.n8n-files
 
     volumes:
       - ./n8n_data:/home/node/.n8n
-      - ./files:/home/node/.n8n-files
-
+      - /home/femi/n8n-production/files:/home/node/.n8n-files
     restart: unless-stopped
 
   ollama:
     image: ollama/ollama
     container_name: n8n-production_ollama_1
     ports:
-      - "11434:11434"
+      - "11434:11434" 
+    environment:
+      - OLLAMA_HOST=0.0.0.0
+      - OLLAMA_KEEP_ALIVE=300
     volumes:
       - ./ollama:/root/.ollama
     restart: unless-stopped
