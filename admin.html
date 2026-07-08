@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Atlas AI Admin</title>
+
+<style>
+
+body{
+    background:#1e1f2b;
+    font-family:Segoe UI;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:100vh;
+    margin:0;
+}
+
+.login-box{
+
+    background:white;
+    width:400px;
+    padding:30px;
+    border-radius:10px;
+}
+
+input{
+
+    width:100%;
+    padding:12px;
+    margin-bottom:15px;
+    box-sizing:border-box;
+}
+
+button{
+
+    width:100%;
+    padding:12px;
+    background:#4da3ff;
+    border:none;
+    color:white;
+    cursor:pointer;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="login-box">
+
+    <h2>Atlas AI Administration</h2>
+
+    <input
+        id="username"
+        placeholder="Username">
+
+    <input
+        type="password"
+        id="password"
+        placeholder="Password">
+
+    <button onclick="login()">
+        Login
+    </button>
+
+</div>
+
+<script>
+
+async function login(){
+
+    const username =
+    document.getElementById("username").value;
+
+    const password =
+    document.getElementById("password").value;
+
+    const response =
+    await fetch(
+        "/login.php",
+        {
+            method:"POST",
+            headers:{
+                "Content-Type":"application/json"
+            },
+            body:JSON.stringify({
+                username,
+                password
+            })
+        }
+    );
+
+    const result =
+    await response.json();
+
+    if(result.success){
+
+        window.location.href =
+        "dashboard.php";
+
+    }
+    else{
+
+        alert(
+            "Invalid login"
+        );
+
+    }
+}
+
+</script>
+
+</body>
+</html>
