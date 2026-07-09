@@ -39,13 +39,14 @@ body{
 
 .sidebar button{
     width:100%;
-    padding:12px;
+    padding:10px;
     border:none;
     border-radius:8px;
     margin-bottom:12px;
     background:#4da3ff;
     color:white;
     cursor:pointer;
+    font-size:14px;
 }
 
 .main{
@@ -61,12 +62,16 @@ body{
     justify-content:space-between;
     align-items:center;
     padding:0 25px;
+    position:relative;
 }
+
 
 .logo-area{
     display:flex;
     align-items:center;
     gap:12px;
+    font-size:18px;
+    font-weight:bold;
 }
 
 .logo-area img{
@@ -82,7 +87,7 @@ body{
 }
 
 .message{
-    max-width:75%;
+    max-width:80%;
     padding:15px;
     border-radius:12px;
     margin-bottom:15px;
@@ -91,7 +96,9 @@ body{
 .ai{
     background:#2b2f46;
     align-self:flex-start;
+    line-height:1.6;
 }
+
 
 .user{
     background:#4da3ff;
@@ -106,9 +113,10 @@ body{
 
 .input-area input{
     flex:1;
-    padding:14px;
+    padding:16px;
     border:none;
     border-radius:8px;
+    font-size:15px;
 }
 
 .input-area button{
@@ -150,6 +158,25 @@ body.light-mode .main{
     background:#f9fafb;
 }
 
+body.light-mode{
+    background:#f9fafb;
+    color:#111827;
+}
+
+body.light-mode .sidebar{
+    background:#ffffff;
+    border-right:1px solid #e5e7eb;
+}
+
+body.light-mode .header{
+    background:#ffffff;
+    border-bottom:1px solid #e5e7eb;
+}
+
+body.light-mode .main{
+    background:#f9fafb;
+}
+
 body.light-mode .chat{
     background:#f9fafb;
 }
@@ -167,24 +194,17 @@ body.light-mode .user{
 
 body.light-mode .input-area{
     background:#ffffff;
-    border-top:1px solid #e5e7eb;
 }
 
 body.light-mode .input-area input{
-    background:white;
+    background:#ffffff;
     color:#111827;
     border:1px solid #d1d5db;
-}
-
-body.light-mode .input-area button{
-    background:#4da3ff;
-    color:white;
 }
 
 body.light-mode #aiTitle{
     color:#111827;
 }
-
 
 
 .clear-btn{
@@ -236,9 +256,11 @@ body.light-mode #aiTitle{
 
         <div class="logo-area">
 
-    <h2 id="aiTitle">
+    <h1 id="aiTitle">
         Atlas AI
-    </h2>
+    </h1>
+
+
 
 </div>
 
@@ -257,7 +279,7 @@ onclick="clearChat()">
 
         <input
             id="question"
-            placeholder="Ask Atlas AI..."
+            placeholder="Ask Atlas AI about Atlas..."
             onkeydown="if(event.key==='Enter') send()">
 
         <button onclick="send()">
@@ -300,7 +322,7 @@ window.onload=function(){
     else{
 
         addMessage(
-            "👋 Hello " +
+            "👋 Welcome back " +
             profileName +
             ".<br><br>I am Olaah, Your Atlas AI, How can I help you today?",
             "ai"
