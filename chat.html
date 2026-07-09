@@ -28,6 +28,7 @@ body{
     background:#11131d;
     border-right:1px solid #2f3246;
     padding:20px;
+    position:relative;
 }
 
 .sidebar img{
@@ -40,13 +41,45 @@ body{
     text-align:center;
     margin-bottom:25px;
     font-size:13px;
-    color:#666;
     line-height:1.6;
+    color:#a0aec0;
 }
 
 .sidebar-user strong{
-    color:#111827;
-    font-size:15px;
+    color:#4da3ff;
+    font-size:16px;
+    font-weight:600;
+}
+
+.sidebar-footer{
+    font-size:11px;
+    color:#888;
+}
+
+
+.sidebar-footer{
+
+    position:absolute;
+    bottom:20px;
+    left:0;
+
+    width:100%;
+
+    text-align:center;
+
+    font-size:11px;
+
+    color:#888;
+
+    line-height:1.5;
+
+}
+
+
+.sidebar-user strong{
+    color:#4da3ff !important;
+    font-size:16px;
+    font-weight:600;
 
 
 
@@ -89,7 +122,7 @@ body{
     padding:25px;
     display:flex;
     flex-direction:column;
-    
+    align-items:center;
 }
 
 
@@ -144,7 +177,7 @@ body{
 }
 
 .welcome-card{
-    width:700px;
+    width:900px;
     max-width:90%;
 }
 
@@ -199,6 +232,26 @@ body.light-mode #aiTitle{
     color:#111827;
 }
 
+
+body.light-mode .sidebar-user{
+    color:#666;
+}
+
+body.light-mode .sidebar-user strong{
+    color:#111827;
+}
+`
+
+
+body.light-mode .sidebar-user{
+    color:#666;
+}
+
+body.light-mode .sidebar-user strong{
+    color:#111827 !important;
+}
+
+
 </style>
 
 </head>
@@ -227,6 +280,16 @@ body.light-mode #aiTitle{
     <button onclick="window.location.href='admin.html'">
   👤 Admin
 </button>
+
+<div class="sidebar-footer">
+
+    <strong>Atlas AI v1.0</strong>
+
+    <br>
+
+    Powered by Atlas Support
+
+</div>
 
 </div>
 
