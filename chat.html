@@ -7,8 +7,6 @@
 
 <title>Atlas AI</title>
 
-<script src="https.js"></script>
-
 <style>
 
 *{
@@ -18,7 +16,7 @@
 }
 
 body{
-    font-family:Segoe UI, sans-serif;
+    font-family:Segoe UI,sans-serif;
     background:#1e1f2b;
     color:white;
     display:flex;
@@ -32,9 +30,17 @@ body{
     padding:20px;
 }
 
-.sidebar h2{
-    margin-bottom:25px;
-    color:#4da3ff;
+.sidebar img{
+    width:180px;
+    display:block;
+    margin:0 auto 20px auto;
+}
+
+.sidebar-user{
+    text-align:center;
+    margin-bottom:20px;
+    color:#888;
+    font-size:14px;
 }
 
 .sidebar button{
@@ -49,7 +55,6 @@ body{
     font-size:14px;
 }
 
-
 .main{
     flex:1;
     display:flex;
@@ -60,23 +65,13 @@ body{
     height:80px;
     background:#11131d;
     display:flex;
-    justify-content:space-between;
     align-items:center;
     padding:0 25px;
-    position:relative;
 }
 
-
-.logo-area{
-    display:flex;
-    align-items:center;
-    gap:12px;
-    font-size:18px;
-    font-weight:bold;
-}
-
-.logo-area img{
-    height:50px;
+#aiTitle{
+    font-size:16px;
+    font-weight:600;
 }
 
 .chat{
@@ -88,7 +83,7 @@ body{
 }
 
 .message{
-    max-width:700%;
+    max-width:700px;
     padding:15px;
     border-radius:12px;
     margin-bottom:15px;
@@ -96,10 +91,9 @@ body{
 
 .ai{
     background:#2b2f46;
-    align-self:flex-start;
     line-height:1.6;
+    align-self:flex-start;
 }
-
 
 .user{
     background:#4da3ff;
@@ -130,43 +124,15 @@ body{
     cursor:pointer;
 }
 
-.typing{
-    opacity:.7;
+.clear-btn{
+    background:#ef4444 !important;
 }
 
-.sidebar-user{
-    text-align:center;
-    margin-bottom:20px;
-    color:#888;
-    font-size:14px;
+.clear-btn:hover{
+    background:#dc2626 !important;
 }
-``
-
 
 /* LIGHT MODE */
-
-body.light-mode{
-    background:#f9fafb;
-    color:#111827;
-}
-
-body.light-mode .sidebar{
-    background:#ffffff;
-    border-right:1px solid #e5e7eb;
-}
-
-body.light-mode .sidebar h2{
-    color:#4da3ff;
-}
-
-body.light-mode .header{
-    background:#ffffff;
-    border-bottom:1px solid #e5e7eb;
-}
-
-body.light-mode .main{
-    background:#f9fafb;
-}
 
 body.light-mode{
     background:#f9fafb;
@@ -216,19 +182,84 @@ body.light-mode #aiTitle{
     color:#111827;
 }
 
+</style>
 
-.clear-btn{
-    background:#ef4444;
-    color:white;
-    border:none;
-    padding:10px 15px;
-    border-radius:6px;
-    cursor:pointer;
-}
+</head>
 
-.clear-btn:hover{
-    background:#dc2626;
-}
+<body>
+
+<div class="sidebar">
+
+    <img
+        src="logo.png"
+        alt="Logo">
+
+    <div
+        id="sidebarUser"
+        class="sidebar-user">
+
+        👤 User
+
+    </div>
+
+    <button onclick="newChat()">
+        + New Chat
+    </button>
+
+    <button onclick="openSettings()">
+        ⚙ Settings
+    </button>
+
+    <button onclick="window.location.href='admin.html'">
+  👤 Admin
+</button>
+
+</div>
+
+<div class="main">
+
+    <div class="header">
+
+        <h1 id="aiTitle">
+            Atlas AI
+        </h1>
+
+    </div>
+
+    <div
+        id="chat"
+        class="chat">
+    </div>
+
+    <div class="input-area">
+
+        <input
+            id="question"
+            placeholder="Ask Atlas AI anything..."
+            onkeydown="if(event.key==='Enter') send()">
+
+        <button onclick="send()">
+            Send
+        </button>
+
+        <button
+            class="clear-btn"
+            onclick="clearChat()">
+
+            🗑 Clear
+
+        </button>
+
+    </div>
+
+</div>
+
+<script>
+
+const chat =
+document.getElementById(
+    "chat"
+);
 
 const profileName =
 localStorage.getItem(
@@ -244,87 +275,6 @@ if(profileName){
 
 }
 
-
-
-</style>
-
-</head>
-
-<body>
-
-<div class="sidebar">
-
-    <img
-        src="logo.png"
-        alt="Logo"
-        style="
-        width:180px;
-        margin-bottom:20px;">
-
-<div id="sidebarUser" class="sidebar-user">
-    👤 User
-</div>
-
-    <button onclick="newChat()">
-    + New Chat
-</button>
-
-<button onclick="openSettings()">
-    ⚙ Settings
-</button>
-
-<button onclick="window.location.href='admin.html'">
-  👤 Admin
-</button>
-</div>
-
-<div class="main">
-
-    <div class="header">
-
-        <div class="logo-area">
-
-    <h1 id="aiTitle">
-        Atlas AI
-    </h1>
-
-
-
-</div>
-
-      
-
-    </div>
-
-    <div id="chat" class="chat"></div>
-
-    <div class="input-area">
-
-        <input
-            id="question"
-            placeholder="Ask Atlas AI about Atlas..."
-            onkeydown="if(event.key==='Enter') send()">
-
-        <button onclick="send()">
-    Send
-</button>
-
-<button
-class="clear-btn"
-onclick="clearChat()">
-🗑 Clear Chat
-</button>
-
-    </div>
-
-</div>
-
-<script>
-
-const chat =
-document.getElementById("chat");
-
-
 window.onload=function(){
 
     const profileName =
@@ -332,37 +282,47 @@ window.onload=function(){
         "profileName"
     ) || "there";
 
+    const historyEnabled =
+    localStorage.getItem(
+        "chatHistory"
+    ) === "true";
+
+    const savedChat =
+    localStorage.getItem(
+        "savedChat"
+    );
+
     if(
-        localStorage.getItem(
-            "chatHistory"
-        ) === "true"
-        &&
-        localStorage.getItem(
-            "savedChat"
-        )
+        historyEnabled &&
+        savedChat &&
+        savedChat.trim() !== ""
     ){
 
         chat.innerHTML =
-        localStorage.getItem(
-            "savedChat"
-        );
+        savedChat;
 
     }
     else{
-    
-   addMessage(
-           "👋 Welcome back, " +
-profileName +
-".<br><br>" +
-"I am Olaah, your Atlas AI assistant.<br><br>" +
-"How can I help you today?"
-   
 
+        addMessage(
+            "👋 Welcome back, " +
+            profileName +
+            ".<br><br>" +
+            "I am Olaah, your Atlas AI assistant.<br><br>" +
+            "How can I help you today?",
+            "ai"
+        );
+
+    }
+
+};
 
 function addMessage(text,type){
 
     const div =
-    document.createElement("div");
+    document.createElement(
+        "div"
+    );
 
     div.className =
     "message " + type;
@@ -375,23 +335,24 @@ function addMessage(text,type){
 
     chat.appendChild(div);
 
-if(
-    localStorage.getItem(
-        "chatHistory"
-    ) === "true"
-){
+    if(
+        localStorage.getItem(
+            "chatHistory"
+        ) === "true"
+    ){
 
-    localStorage.setItem(
-        "savedChat",
-        chat.innerHTML
-    );
+        localStorage.setItem(
+            "savedChat",
+            chat.innerHTML
+        );
 
-}
+    }
 
     chat.scrollTop =
     chat.scrollHeight;
 
     return div;
+
 }
 
 function clearChat(){
@@ -404,9 +365,7 @@ function clearChat(){
 
 }
 
-
-
-  function newChat(){
+function newChat(){
 
     chat.innerHTML="";
 
@@ -414,8 +373,8 @@ function clearChat(){
         "👋 New chat started.<br><br>How can I help you today?",
         "ai"
     );
-}
 
+}
 
 function openSettings(){
 
@@ -427,12 +386,16 @@ function openSettings(){
 async function send(){
 
     const input =
-    document.getElementById("question");
+    document.getElementById(
+        "question"
+    );
 
     const question =
     input.value.trim();
 
-    if(!question) return;
+    if(!question){
+        return;
+    }
 
     addMessage(
         question,
@@ -455,7 +418,8 @@ async function send(){
             {
                 method:"POST",
                 headers:{
-                    "Content-Type":"application/json"
+                    "Content-Type":
+                    "application/json"
                 },
                 body:JSON.stringify({
                     question
@@ -469,12 +433,10 @@ async function send(){
         typing.remove();
 
         addMessage(
-            marked.parse(
-                result.answer ||
-                result.output ||
-                result.text ||
-                JSON.stringify(result)
-            ),
+            result.answer ||
+            result.output ||
+            result.text ||
+            JSON.stringify(result),
             "ai"
         );
 
@@ -488,10 +450,9 @@ async function send(){
             "ai"
         );
 
-        console.error(error);
     }
-}
 
+}
 
 const theme =
 localStorage.getItem(
@@ -505,12 +466,6 @@ if(theme==="light"){
     );
 
 }
-
-
-
-
-
-
 
 </script>
 
