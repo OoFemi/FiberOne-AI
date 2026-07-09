@@ -38,9 +38,18 @@ body{
 
 .sidebar-user{
     text-align:center;
-    margin-bottom:20px;
-    color:#888;
-    font-size:14px;
+    margin-bottom:25px;
+    font-size:13px;
+    color:#666;
+    line-height:1.6;
+}
+
+.sidebar-user strong{
+    color:#111827;
+    font-size:15px;
+}
+
+
 }
 
 .sidebar button{
@@ -80,7 +89,9 @@ body{
     padding:25px;
     display:flex;
     flex-direction:column;
+    
 }
+
 
 .message{
     max-width:700px;
@@ -131,6 +142,12 @@ body{
 .clear-btn:hover{
     background:#dc2626 !important;
 }
+
+.welcome-card{
+    width:700px;
+    max-width:90%;
+}
+
 
 /* LIGHT MODE */
 
@@ -194,13 +211,10 @@ body.light-mode #aiTitle{
         src="logo.png"
         alt="Logo">
 
-    <div
-        id="sidebarUser"
-        class="sidebar-user">
-
-        👤 User
-
-    </div>
+    <div id="sidebarUser" class="sidebar-user">
+    Welcome,<br>
+    <strong>User</strong>
+</div>
 
     <button onclick="newChat()">
         + New Chat
@@ -269,9 +283,11 @@ localStorage.getItem(
 if(profileName){
 
     document.getElementById(
-        "sidebarUser"
-    ).innerHTML =
-    "👤 " + profileName;
+    "sidebarUser"
+).innerHTML =
+"Welcome,<br><strong>" +
+profileName +
+"</strong>";
 
 }
 
@@ -304,18 +320,29 @@ window.onload=function(){
     }
     else{
 
-        addMessage(
-            "👋 Welcome back, " +
-            profileName +
-            ".<br><br>" +
-            "I am Olaah, your Atlas AI assistant.<br><br>" +
-            "How can I help you today?",
-            "ai"
-        );
+    const welcome =
+addMessage(
+    "👋 Welcome back, " +
+    profileName +
+    ".<br><br>" +
+    "I am Olaah, your Atlas AI assistant.<br><br>" +
+    "How can I help you today?<br><br>" +
+    "<strong>Try asking:</strong><br><br>" +
+    "📄 Summarise a document<br>" +
+    "📧 Write an email<br>" +
+    "📊 Generate a report<br>" +
+    "💡 Explain a concept",
+    "ai"
+);
 
-    }
+welcome.classList.add(
+    "welcome-card"
+);
 
+}
 };
+
+
 
 function addMessage(text,type){
 
