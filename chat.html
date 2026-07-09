@@ -125,6 +125,51 @@ body{
     opacity:.7;
 }
 
+/* LIGHT MODE */
+
+.light-mode{
+    background:#f4f6f9;
+    color:#000;
+}
+
+.light-mode .sidebar{
+    background:#ffffff;
+    border-right:1px solid #ddd;
+}
+
+.light-mode .header{
+    background:#ffffff;
+    color:#000;
+}
+
+.light-mode .main{
+    background:#f4f6f9;
+}
+
+.light-mode .chat{
+    background:#f4f6f9;
+}
+
+.light-mode .ai{
+    background:#e9eefc;
+    color:#000;
+}
+
+.light-mode .input-area{
+    background:#ffffff;
+}
+
+.light-mode .input-area input{
+    background:#ffffff;
+    color:#000;
+    border:1px solid #ccc;
+}
+
+.light-mode h2{
+    color:#000;
+}
+
+
 </style>
 
 </head>
@@ -193,14 +238,44 @@ body{
 const chat =
 document.getElementById("chat");
 
+
 window.onload=function(){
 
-    addMessage(
-        "👋 Hello, I'm Olaah, your Atlas AI assistant.<br><br>How can I help you today?",
-        "ai"
-    );
+    const profileName =
+    localStorage.getItem(
+        "profileName"
+    ) || "there";
+
+    if(
+        localStorage.getItem(
+            "chatHistory"
+        ) === "true"
+        &&
+        localStorage.getItem(
+            "savedChat"
+        )
+    ){
+
+        chat.innerHTML =
+        localStorage.getItem(
+            "savedChat"
+        );
+
+    }
+    else{
+
+        addMessage(
+            "👋 Hello " +
+            profileName +
+            ".<br><br>I am Olaah, Your Atlas AI, How can I help you today?",
+            "ai"
+        );
+
+    }
 
 };
+
+
 
 function addMessage(text,type){
 
@@ -218,6 +293,19 @@ function addMessage(text,type){
 
     chat.appendChild(div);
 
+if(
+    localStorage.getItem(
+        "chatHistory"
+    ) === "true"
+){
+
+    localStorage.setItem(
+        "savedChat",
+        chat.innerHTML
+    );
+
+}
+
     chat.scrollTop =
     chat.scrollHeight;
 
@@ -228,7 +316,12 @@ function clearChat(){
 
     chat.innerHTML="";
 
+    localStorage.removeItem(
+        "savedChat"
+    );
+
 }
+
 
 function newChat(){
 
@@ -243,9 +336,8 @@ function newChat(){
 
 function openSettings(){
 
-    alert(
-        "Settings page coming soon."
-    );
+    window.location.href =
+    "settings.html";
 
 }
 
@@ -316,6 +408,28 @@ async function send(){
         console.error(error);
     }
 }
+
+
+const theme =
+localStorage.getItem(
+    "theme"
+);
+
+if(theme==="light"){
+
+    document.body.style.background =
+    "#ffffff";
+
+    document.body.style.color =
+    "#000000";
+
+}
+
+
+
+
+
+
 
 </script>
 
