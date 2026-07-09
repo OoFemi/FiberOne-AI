@@ -49,6 +49,7 @@ body{
     font-size:14px;
 }
 
+
 .main{
     flex:1;
     display:flex;
@@ -87,7 +88,7 @@ body{
 }
 
 .message{
-    max-width:80%;
+    max-width:700%;
     padding:15px;
     border-radius:12px;
     margin-bottom:15px;
@@ -132,6 +133,15 @@ body{
 .typing{
     opacity:.7;
 }
+
+.sidebar-user{
+    text-align:center;
+    margin-bottom:20px;
+    color:#888;
+    font-size:14px;
+}
+``
+
 
 /* LIGHT MODE */
 
@@ -220,6 +230,20 @@ body.light-mode #aiTitle{
     background:#dc2626;
 }
 
+const profileName =
+localStorage.getItem(
+    "profileName"
+);
+
+if(profileName){
+
+    document.getElementById(
+        "sidebarUser"
+    ).innerHTML =
+    "👤 " + profileName;
+
+}
+
 
 
 </style>
@@ -236,6 +260,10 @@ body.light-mode #aiTitle{
         style="
         width:180px;
         margin-bottom:20px;">
+
+<div id="sidebarUser" class="sidebar-user">
+    👤 User
+</div>
 
     <button onclick="newChat()">
     + New Chat
@@ -264,12 +292,7 @@ body.light-mode #aiTitle{
 
 </div>
 
-        <button
-class="clear-btn"
-onclick="clearChat()">
-🗑 Clear
-</button>
-`
+      
 
     </div>
 
@@ -283,8 +306,14 @@ onclick="clearChat()">
             onkeydown="if(event.key==='Enter') send()">
 
         <button onclick="send()">
-            Send
-        </button>
+    Send
+</button>
+
+<button
+class="clear-btn"
+onclick="clearChat()">
+🗑 Clear Chat
+</button>
 
     </div>
 
@@ -320,18 +349,14 @@ window.onload=function(){
 
     }
     else{
-
-        addMessage(
-            "👋 Welcome back " +
-            profileName +
-            ".<br><br>I am Olaah, Your Atlas AI, How can I help you today?",
-            "ai"
-        );
-
-    }
-
-};
-
+    
+   addMessage(
+           "👋 Welcome back, " +
+profileName +
+".<br><br>" +
+"I am Olaah, your Atlas AI assistant.<br><br>" +
+"How can I help you today?"
+   
 
 
 function addMessage(text,type){
@@ -380,7 +405,8 @@ function clearChat(){
 }
 
 
-function newChat(){
+
+  function newChat(){
 
     chat.innerHTML="";
 
@@ -388,8 +414,8 @@ function newChat(){
         "👋 New chat started.<br><br>How can I help you today?",
         "ai"
     );
-
 }
+
 
 function openSettings(){
 
