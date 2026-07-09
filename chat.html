@@ -187,6 +187,20 @@ body.light-mode #aiTitle{
 
 
 
+.clear-btn{
+    background:#ef4444;
+    color:white;
+    border:none;
+    padding:10px 15px;
+    border-radius:6px;
+    cursor:pointer;
+}
+
+.clear-btn:hover{
+    background:#dc2626;
+}
+
+
 
 </style>
 
@@ -196,7 +210,12 @@ body.light-mode #aiTitle{
 
 <div class="sidebar">
 
-    <h2>Atlas AI</h2>
+    <img
+        src="logo.png"
+        alt="Logo"
+        style="
+        width:180px;
+        margin-bottom:20px;">
 
     <button onclick="newChat()">
     + New Chat
@@ -217,20 +236,18 @@ body.light-mode #aiTitle{
 
         <div class="logo-area">
 
-            <img
-                id="companyLogo"
-                src="logo.png"
-                alt="Logo">
+    <h2 id="aiTitle">
+        Atlas AI
+    </h2>
 
-            <h2 id="aiTitle">
-                Atlas AI
-            </h2>
+</div>
 
-        </div>
-
-        <button onclick="clearChat()">
-            Clear
-        </button>
+        <button
+class="clear-btn"
+onclick="clearChat()">
+🗑 Clear
+</button>
+`
 
     </div>
 
