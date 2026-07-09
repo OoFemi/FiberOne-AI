@@ -127,47 +127,65 @@ body{
 
 /* LIGHT MODE */
 
-.light-mode{
-    background:#f4f6f9;
-    color:#000;
+body.light-mode{
+    background:#f9fafb;
+    color:#111827;
 }
 
-.light-mode .sidebar{
+body.light-mode .sidebar{
     background:#ffffff;
-    border-right:1px solid #ddd;
+    border-right:1px solid #e5e7eb;
 }
 
-.light-mode .header{
+body.light-mode .sidebar h2{
+    color:#4da3ff;
+}
+
+body.light-mode .header{
     background:#ffffff;
-    color:#000;
+    border-bottom:1px solid #e5e7eb;
 }
 
-.light-mode .main{
-    background:#f4f6f9;
+body.light-mode .main{
+    background:#f9fafb;
 }
 
-.light-mode .chat{
-    background:#f4f6f9;
+body.light-mode .chat{
+    background:#f9fafb;
 }
 
-.light-mode .ai{
-    background:#e9eefc;
-    color:#000;
+body.light-mode .ai{
+    background:#f3f4f6;
+    color:#111827;
+    border:1px solid #e5e7eb;
 }
 
-.light-mode .input-area{
+body.light-mode .user{
+    background:#4da3ff;
+    color:white;
+}
+
+body.light-mode .input-area{
     background:#ffffff;
+    border-top:1px solid #e5e7eb;
 }
 
-.light-mode .input-area input{
-    background:#ffffff;
-    color:#000;
-    border:1px solid #ccc;
+body.light-mode .input-area input{
+    background:white;
+    color:#111827;
+    border:1px solid #d1d5db;
 }
 
-.light-mode h2{
-    color:#000;
+body.light-mode .input-area button{
+    background:#4da3ff;
+    color:white;
 }
+
+body.light-mode #aiTitle{
+    color:#111827;
+}
+
+
 
 
 </style>
@@ -417,11 +435,9 @@ localStorage.getItem(
 
 if(theme==="light"){
 
-    document.body.style.background =
-    "#ffffff";
-
-    document.body.style.color =
-    "#000000";
+    document.body.classList.add(
+        "light-mode"
+    );
 
 }
 
