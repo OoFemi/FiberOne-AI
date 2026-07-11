@@ -24,7 +24,6 @@ header("Expires: 0");
 <title>Atlas AI Administration</title>
 
 <style>
-
 *{
     margin:0;
     padding:0;
@@ -128,6 +127,137 @@ select{
     cursor:pointer;
 }
 
+.saveBtn{
+    padding:10px 20px;
+    background:#4da3ff;
+    color:white;
+    border:none;
+    border-radius:6px;
+    cursor:pointer;
+}
+
+/* ADD NEW CSS BELOW HERE */
+
+.stats{
+    display:flex;
+    gap:20px;
+    margin:20px 0;
+}
+
+.card{
+    background:white;
+    padding:20px;
+    border-radius:10px;
+    min-width:180px;
+    box-shadow:0 2px 8px rgba(0,0,0,.1);
+}
+
+.card p{
+    font-size:28px;
+    color:#4da3ff;
+    font-weight:bold;
+}
+
+.quick-actions{
+    margin:20px 0;
+}
+
+.quick-actions button{
+    margin-right:10px;
+    padding:10px 15px;
+    background:#4da3ff;
+    color:white;
+    border:none;
+    border-radius:6px;
+    cursor:pointer;
+}
+
+#searchUser{
+    width:300px;
+    padding:10px;
+    border:1px solid #ddd;
+    border-radius:6px;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+    margin-top:20px;
+    background:white;
+    border-radius:10px;
+    overflow:hidden;
+}
+
+th{
+    background:#4da3ff;
+    color:white;
+    padding:12px;
+}
+
+tr:nth-child(even){
+    background:#f7f7f7;
+}
+
+tr:hover{
+    background:#eef5ff;
+}
+
+
+#searchUser{
+    width:350px;
+    padding:10px;
+    border:1px solid #ddd;
+    border-radius:6px;
+    font-size:14px;
+}
+
+
+loadUsers();
+loadSettings();
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function(){
+
+        document
+        .getElementById("searchUser")
+        .addEventListener(
+            "keyup",
+            function(){
+
+                const value =
+                this.value.toLowerCase();
+
+                document
+                .querySelectorAll(
+                    "#userTable tr"
+                )
+                .forEach(row=>{
+
+                    row.style.display =
+
+                    row.innerText
+                    .toLowerCase()
+                    .includes(value)
+
+                    ? ""
+
+                    : "none";
+
+                });
+
+            }
+        );
+
+    }
+);
+
+
+</style>
+
+
+
+
 </style>
 
 </head>
@@ -163,48 +293,131 @@ select{
 
     <div id="users" class="section active">
 
-        <h1>User Management</h1>
+<h1>User Management</h1>
 
-        <br>
+<div class="stats">
+
+    <div class="card">
+        <h3>Total Users</h3>
+        <p id="totalUsers">0</p>
+    </div>
+
+    <div class="card">
+        <h3>Admins</h3>
+        <p id="totalAdmins">0</p>
+    </div>
+
+    <div class="card">
+        <h3>Groups</h3>
+        <p>5</p>
+    </div>
+
+    <div class="card">
+        <h3>Active Users</h3>
+        <p id="activeUsers">0</p>
+    </div>
+
+</div>
+
+<br>        
+
 
         <h3>Create User</h3>
 
         <input
-            id="newUsername"
-            placeholder="Username">
+id="firstName"
+placeholder="First Name">
 
-        <input
-            id="newPassword"
-            type="password"
-            placeholder="Password">
+<input
+id="lastName"
+placeholder="Last Name">
+
+<input
+id="email"
+placeholder="Email Address">
+
+<input
+id="newUsername"
+placeholder="Username">
+
+<input
+id="newPassword"
+type="password"
+placeholder="Password">
+
+
 
         <select id="newRole">
 
-            <option value="user">
-                User
-            </option>
+    <option value="user">
+        User
+    </option>
 
-            <option value="admin">
-                Admin
-            </option>
+    <option value="admin">
+        Admin
+    </option>
 
-        </select>
+</select>
+
+<select id="groupId">
+
+    <option value="ATL-GRP-ADMIN">
+        Administrators
+    </option>
+
+    <option value="ATL-GRP-SUPPORT">
+        Support Team
+    </option>
+
+    <option value="ATL-GRP-HR">
+        Human Resources
+    </option>
+
+    <option value="ATL-GRP-FINANCE">
+        Finance
+    </option>
+
+    <option value="ATL-GRP-OPS">
+        Operations
+    </option>
+
+</select>
+
+<button onclick="createUser()">
+    Create User
+</button>
 
         <button onclick="createUser()">
             Create User
         </button>
 
+      <br>
+
+<input
+    type="text"
+    id="searchUser"
+    placeholder="🔍 Search users...">
+
+<br><br>
+
+
+
         <table>
 
             <thead>
 
-                <tr>
-                    <th>ID</th>
-                    <th>Username</th>
-                    <th>Role</th>
-                    <th>Created</th>
-                    <th>Actions</th>
-                </tr>
+             <th>ID</th>
+<th>User ID</th>
+<th>First Name</th>
+<th>Last Name</th>
+<th>Email</th>
+<th>Username</th>
+<th>Role</th>
+<th>Group ID</th>
+<th>Status</th>
+<th>Created</th>
+<th>Last Login</th>
+<th>Actions</th>
 
             </thead>
 
@@ -306,10 +519,17 @@ async function loadUsers(){
 
         <tr>
 
-            <td>${user.id}</td>
-            <td>${user.username}</td>
-            <td>${user.role}</td>
-            <td>${user.created_at}</td>
+             <td>${user.id}</td>
+<td>${user.user_id || ''}</td>
+<td>${user.first_name || ''}</td>
+<td>${user.last_name || ''}</td>
+<td>${user.email || ''}</td>
+<td>${user.username}</td>
+<td>${user.role}</td>
+<td>${user.group_id || ''}</td>
+<td>${user.status || 'Active'}</td>
+<td>${user.created_at}</td>
+<td>${user.last_login || ''}</td>
 
             <td>
 
@@ -353,10 +573,8 @@ async function loadUsers(){
 
 async function createUser(){
 
-    const username =
-    document.getElementById(
-        "newUsername"
-    ).value;
+    
+
 
     const password =
     document.getElementById(
@@ -415,6 +633,7 @@ async function editUser(
     prompt(
         "Role (admin/user)",
         currentRole
+
     );
 
     if(!role) return;
