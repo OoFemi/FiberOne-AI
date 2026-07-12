@@ -517,19 +517,28 @@ async function send(){
             }
         );
 
-        const result =
-        await response.json();
+     
 
-        typing.remove();
+if(!response.ok){
 
-        addMessage(
-            result.answer ||
-            result.output ||
-            result.text ||
-            JSON.stringify(result),
-            "ai"
-        );
+    throw new Error(
+        "HTTP " + response.status
+    );
 
+}
+
+const result =
+await response.json();
+
+typing.remove();
+
+addMessage(
+    result.answer ||
+    result.output ||
+    result.text ||
+    JSON.stringify(result),
+    "ai"
+);
     }
     catch(error){
 
