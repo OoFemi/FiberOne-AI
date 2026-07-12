@@ -24,6 +24,13 @@ async function loadUsers(){
         const users =
         await response.json();
 
+document.getElementById(
+"userCount"
+).innerText =
+"Showing " +
+users.length +
+" users";
+
         console.log(users);
 
         document.getElementById(
@@ -62,9 +69,17 @@ async function loadUsers(){
                 <td>${user.last_name || ""}</td>
                 <td>${user.email || ""}</td>
                 <td>${user.username || ""}</td>
-                <td>${user.role || ""}</td>
+                <td>
+${user.role === "admin"
+? '<span class="role-admin">👑 Admin</span>'
+: 'User'}
+</td>
                 <td>${user.group_id || ""}</td>
-                <td>${user.status || ""}</td>
+                <td>
+<span class="status-active">
+${user.status || "Active"}
+</span>
+</td>
                 <td>${user.created_at || ""}</td>
                 <td>${user.last_login || ""}</td>
 

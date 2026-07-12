@@ -267,3 +267,37 @@ tr:hover{
     }
 
 }
+
+
+
+.welcome-banner{
+    margin-bottom:25px;
+}
+
+.welcome-banner h1{
+    margin-bottom:5px;
+}
+
+.welcome-banner p{
+    color:#666;
+}
+
+
+.status-active{
+    background:#d4edda;
+    color:#155724;
+    padding:4px 8px;
+    border-radius:20px;
+    font-size:12px;
+    font-weight:bold;
+}
+
+
+.role-admin{
+    background:#fff3cd;
+    color:#856404;
+    padding:4px 8px;
+    border-radius:20px;
+    font-size:12px;
+    font-weight:bold;
+}

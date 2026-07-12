@@ -52,7 +52,17 @@ if (!isset($_SESSION["admin"])) {
 
 <div id="users" class="section active">
 
-<h1>User Management</h1>
+<div class="welcome-banner">
+
+    <h1>
+        Welcome, Administrator
+    </h1>
+
+    <p>
+        Manage users, branding and Atlas AI settings.
+    </p>
+
+</div>
 
 <div class="stats">
 
@@ -131,6 +141,11 @@ Create User
 <input
 id="searchUser"
 placeholder="🔍 Search users...">
+
+<p id="userCount">
+Showing 0 users
+</p>
+
 
 <table>
 
