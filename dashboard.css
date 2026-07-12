@@ -301,3 +301,38 @@ tr:hover{
     font-size:12px;
     font-weight:bold;
 }
+
+.create-user-form{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:10px;
+    margin-bottom:20px;
+}
+
+.create-user-form button{
+    margin:5px;
+}
+
+
+.create-user-form{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:10px;
+    margin-bottom:20px;
+}
+
+.create-user-form input,
+.create-user-form select,
+.create-user-form button{
+    width:100%;
+    margin:0;
+}
+
+
+.activity-feed{
+    background:white;
+    padding:20px;
+    border-radius:12px;
+    box-shadow:0 2px 10px rgba(0,0,0,.08);
+    margin-bottom:20px;
+}

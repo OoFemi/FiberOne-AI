@@ -28,6 +28,9 @@ if (!isset($_SESSION["admin"])) {
 <div class="sidebar">
 
     <h2>Atlas AI</h2>
+<button onclick="showSection('dashboard')">
+📊 Dashboard
+</button>
 
     <button onclick="showSection('users')">
         👥 Users
@@ -50,7 +53,30 @@ if (!isset($_SESSION["admin"])) {
 
 <div class="content">
 
-<div id="users" class="section active">
+<div id="dashboard" class="section active">
+
+    <h1>Dashboard Overview</h1>
+
+    <div class="activity-feed">
+
+        <h3>System Overview</h3>
+
+        <p>
+            Welcome to Atlas AI Administration.
+        </p>
+
+        <br>
+
+        <p>
+            Use the menu on the left to manage users,
+            branding and platform settings.
+        </p>
+
+    </div>
+
+</div>
+
+<div id="users" class="section">
 
 <div class="welcome-banner">
 
@@ -66,10 +92,15 @@ if (!isset($_SESSION["admin"])) {
 
 <div class="stats">
 
+
     <div class="card">
         <h3>Total Users</h3>
         <p id="totalUsers">0</p>
     </div>
+
+</div>
+
+
 
     <div class="card">
         <h3>Admins</h3>
@@ -88,53 +119,57 @@ if (!isset($_SESSION["admin"])) {
 
 </div>
 
+
 <h3>Create User</h3>
 
-<input id="firstName" placeholder="First Name">
-<input id="lastName" placeholder="Last Name">
-<input id="email" placeholder="Email Address">
+<div class="create-user-form">
 
-<input id="newUsername" placeholder="Username">
+    <input id="firstName" placeholder="First Name">
 
-<input
-id="newPassword"
-type="password"
-placeholder="Password">
+    <input id="lastName" placeholder="Last Name">
 
-<select id="newRole">
+    <input id="email" placeholder="Email Address">
 
-<option value="user">User</option>
-<option value="admin">Admin</option>
+    <input id="newUsername" placeholder="Username">
 
-</select>
+    <input
+    id="newPassword"
+    type="password"
+    placeholder="Password">
 
-<select id="groupId">
+    <select id="newRole">
+        <option value="user">User</option>
+        <option value="admin">Admin</option>
+    </select>
 
-<option value="ATL-GRP-ADMIN">
-Administrators
-</option>
+    <select id="groupId">
+        <option value="ATL-GRP-ADMIN">
+            Administrators
+        </option>
 
-<option value="ATL-GRP-SUPPORT">
-Support Team
-</option>
+        <option value="ATL-GRP-SUPPORT">
+            Support Team
+        </option>
 
-<option value="ATL-GRP-HR">
-HR
-</option>
+        <option value="ATL-GRP-HR">
+            HR
+        </option>
 
-<option value="ATL-GRP-FINANCE">
-Finance
-</option>
+        <option value="ATL-GRP-FINANCE">
+            Finance
+        </option>
 
-<option value="ATL-GRP-OPS">
-Operations
-</option>
+        <option value="ATL-GRP-OPS">
+            Operations
+        </option>
+    </select>
 
-</select>
+    <button onclick="createUser()">
+        Create User
+    </button>
 
-<button onclick="createUser()">
-Create User
-</button>
+</div>
+
 
 <br><br>
 
