@@ -41,6 +41,11 @@ if (!isset($_SESSION["admin"])) {
         ⚙ Settings
     </button>
 
+ <button onclick="showSection('logout')">
+    🚪 Logout
+</button>
+
+
 </div>
 
 <div class="content">
@@ -190,7 +195,8 @@ Save
 
 </div>
 
-<script scr="dashboard.js"></script>
+<script src="dashboard.js">
+</script>
 
 </body>
 </html>
