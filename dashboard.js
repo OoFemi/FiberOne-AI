@@ -16,116 +16,125 @@ function showSection(section){
 
 async function loadUsers(){
 
-    const response =
-    await fetch("get_users.php");
+    try{
 
-    const users =
-    await response.json();
+        const response =
+        await fetch("get_users.php");
 
-    document.getElementById(
-        "totalUsers"
-    ).innerText =
-    users.length;
+        const users =
+        await response.json();
 
-    document.getElementById(
-        "totalAdmins"
-    ).innerText =
-    users.filter(
-        u => u.role === "admin"
-    ).length;
+        console.log(users);
 
-    document.getElementById(
-        "activeUsers"
-    ).innerText =
-    users.filter(
-        u => u.status === "Active"
-    ).length;
+        document.getElementById(
+            "totalUsers"
+        ).innerText =
+        users.length;
 
-    const table =
-    document.getElementById(
-        "userTable"
-    );
+        document.getElementById(
+            "totalAdmins"
+        ).innerText =
+        users.filter(
+            u => u.role === "admin"
+        ).length;
 
-    table.innerHTML = "";
+        document.getElementById(
+            "activeUsers"
+        ).innerText =
+        users.filter(
+            u => u.status === "Active"
+        ).length;
 
-    users.forEach(user=>{
+        const table =
+        document.getElementById(
+            "userTable"
+        );
 
-        table.innerHTML += `
+        table.innerHTML = "";
 
-<tr>
+        users.forEach(user=>{
 
-<td>${user.id}</td>
-<td>${user.user_id||''}</td>
-<td>${user.first_name||''}</td>
-<td>${user.last_name||''}</td>
-<td>${user.email||''}</td>
-<td>${user.username}</td>
-<td>${user.role}</td>
-<td>${user.group_id||''}</td>
-<td>${user.status||''}</td>
-<td>${user.created_at||''}</td>
-<td>${user.last_login||''}</td>
+            table.innerHTML += `
+            <tr>
+                <td>${user.id || ""}</td>
+                <td>${user.user_id || ""}</td>
+                <td>${user.first_name || ""}</td>
+                <td>${user.last_name || ""}</td>
+                <td>${user.email || ""}</td>
+                <td>${user.username || ""}</td>
+                <td>${user.role || ""}</td>
+                <td>${user.group_id || ""}</td>
+                <td>${user.status || ""}</td>
+                <td>${user.created_at || ""}</td>
+                <td>${user.last_login || ""}</td>
 
-<td>
+                <td>
+                    <button class="action edit">
+                        Edit
+                    </button>
 
-<button
-class="action edit"
-onclick="editUser(${user.id},
-'${user.username}',
-'${user.role}')">
+                    <button class="action reset">
+                        Reset
+                    </button>
 
-Edit
+                    <button class="action delete">
+                        Delete
+                    </button>
+                </td>
+            </tr>
+            `;
 
-</button>
+        });
 
-<button
-class="action reset"
-onclick="resetPassword(${user.id})">
+    }
+    catch(error){
 
-Reset
+        console.error(error);
 
-</button>
+        alert(
+            "Error loading users. Check console."
+        );
 
-<button
-class="action delete"
-onclick="deleteUser(${user.id})">
-
-Delete
-
-</button>
-
-</td>
-
-</tr>
-
-`;
-
-    });
+    }
 
 }
 
 async function createUser(){
 
     const first_name =
-    document.getElementById("firstName").value;
+    document.getElementById(
+        "firstName"
+    ).value;
 
     const last_name =
-    document.getElementById("lastName").value;
+    document.getElementById(
+        "lastName"
+    ).value;
 
     const email =
-    document.getElementById("email").value;
+    document.getElementById(
+        "email"
+    ).value;
 
     const username =
-    document.getElementById("newUsername").value;
+    document.getElementById(
+        "newUsername"
+    ).value;
 
     const password =
-    document.getElementById("newPassword").value;
+    document.getElementById(
+        "newPassword"
+    ).value;
 
     const role =
-    document.getElementById("newRole").value;
+    document.getElementById(
+        "newRole"
+    ).value;
 
     const group_id =
-    document.getElementById("groupId").value;
+    document.getElementById(
+        "groupId"
+    ).value;
 
     const response =
     await fetch(
@@ -152,7 +161,9 @@ async function createUser(){
 
     if(result.success){
 
-        alert("User Created");
+        alert(
+            "User Created"
+        );
 
         loadUsers();
 
@@ -161,39 +172,50 @@ async function createUser(){
 }
 
 document.addEventListener(
-"DOMContentLoaded",
-function(){
+    "DOMContentLoaded",
+    function(){
 
-    loadUsers();
+        console.log(
+            "DOM loaded"
+        );
 
-    document
-    .getElementById("searchUser")
-    .addEventListener(
-        "keyup",
-        function(){
+        loadUsers();
 
-            const value =
-            this.value.toLowerCase();
+        const search =
+        document.getElementById(
+            "searchUser"
+        );
 
-            document
-            .querySelectorAll(
-                "#userTable tr"
-            )
-            .forEach(row=>{
+        if(search){
 
-                row.style.display =
+            search.addEventListener(
+                "keyup",
+                function(){
 
-                row.innerText
-                .toLowerCase()
-                .includes(value)
+                    const value =
+                    this.value.toLowerCase();
 
-                ? ""
+                    document
+                    .querySelectorAll(
+                        "#userTable tr"
+                    )
+                    .forEach(row=>{
 
-                : "none";
+                        row.style.display =
+                        row.innerText
+                        .toLowerCase()
+                        .includes(value)
 
-            });
+                        ? ""
+
+                        : "none";
+
+                    });
+
+                }
+            );
 
         }
-    );
 
-});
+    }
+);

@@ -28,13 +28,13 @@ str_pad(
 );
 
 $first_name =
-$data["first_name"];
+$data["first_name"] ?? "";
 
 $last_name =
-$data["last_name"];
+$data["last_name"] ?? "";
 
 $email =
-$data["email"];
+$data["email"] ?? "";
 
 $username =
 $data["username"];
@@ -56,20 +56,32 @@ $status =
 
 $stmt =
 $conn->prepare(
-    "INSERT INTO users
-    (
-        user_id,
-        first_name,
-        last_name,
-        email,
-        username,
-        password_hash,
-        role,
-        group_id,
-        status
-    )
-    VALUES
-    (?,?,?,?,?,?,?,?,?)"
+"
+INSERT INTO users
+(
+    user_id,
+    first_name,
+    last_name,
+    email,
+    username,
+    password_hash,
+    role,
+    group_id,
+    status
+)
+VALUES
+(
+    ?,
+    ?,
+    ?,
+    ?,
+    ?,
+    ?,
+    ?,
+    ?,
+    ?
+)
+"
 );
 
 $stmt->bind_param(
