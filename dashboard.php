@@ -44,8 +44,8 @@ if (!isset($_SESSION["admin"])) {
         ⚙ Settings
     </button>
 
- <button onclick="showSection('logout')">
-    🚪 Logout
+ <a href="admin_logout.php" class=" 🚪 logout-btn">logout</a>
+    
 </button>
 
 
@@ -55,26 +55,52 @@ if (!isset($_SESSION["admin"])) {
 
 <div id="dashboard" class="section active">
 
-    <h1>Dashboard Overview</h1>
+<h1>Dashboard Overview</h1>
 
-    <div class="activity-feed">
+<div class="stats">
 
-        <h3>System Overview</h3>
+    <div class="card">
+        <h3>Total Users</h3>
+        <p id="dashboardUsers">5</p>
+    </div>
 
-        <p>
-            Welcome to Atlas AI Administration.
-        </p>
+    <div class="card">
+        <h3>Admins</h3>
+        <p id="dashboardAdmins">1</p>
+    </div>
 
-        <br>
+    <div class="card">
+        <h3>Groups</h3>
+        <p>5</p>
+    </div>
 
-        <p>
-            Use the menu on the left to manage users,
-            branding and platform settings.
-        </p>
-
+    <div class="card">
+        <h3>Active Users</h3>
+        <p>5</p>
     </div>
 
 </div>
+
+<div class="activity-feed">
+
+<h3>Recent Activity</h3>
+
+<ul>
+
+<li>✅ User account created</li>
+
+<li>✅ Branding settings updated</li>
+
+<li>✅ Password reset completed</li>
+
+<li>✅ System operational</li>
+
+</ul>
+
+</div>
+
+</div>
+
 
 <div id="users" class="section">
 
@@ -85,49 +111,18 @@ if (!isset($_SESSION["admin"])) {
     </h1>
 
     <p>
-        Manage users, branding and Atlas AI settings.
+        Manage users, Department and view activities.
     </p>
 
 </div>
 
+
 <div class="stats">
-
-
-
-<div class="activity-feed">
-
-    <h3>Recent Activity</h3>
-
-    <ul>
-
-        <li>✅ User account created</li>
-
-        <li>✅ Branding settings updated</li>
-
-        <li>✅ Password reset completed</li>
-
-        <li>✅ System operational</li>
-
-    </ul>
-
-</div>
-
-
-
-
-
-
-
-
 
     <div class="card">
         <h3>Total Users</h3>
         <p id="totalUsers">0</p>
     </div>
-
-</div>
-
-
 
     <div class="card">
         <h3>Admins</h3>
@@ -145,6 +140,44 @@ if (!isset($_SESSION["admin"])) {
     </div>
 
 </div>
+
+<div class="activity-feed">
+
+    <h3>Recent Activity</h3>
+
+    <ul>
+        <li>✅ User account created</li>
+        <li>✅ Branding settings updated</li>
+        <li>✅ Password reset completed</li>
+        <li>✅ System operational</li>
+    </ul>
+
+</div>
+
+
+<div class="quick-actions">
+
+<h3>Quick Actions</h3>
+
+<button onclick="showSection('users')">
+👥 Manage Users
+</button>
+
+<button onclick="showSection('branding')">
+🎨 Branding
+</button>
+
+<button onclick="showSection('settings')">
+⚙ Settings
+</button>
+
+</div>
+
+
+
+
+
+
 
 
 <h3>Create User</h3>

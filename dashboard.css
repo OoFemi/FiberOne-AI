@@ -42,10 +42,22 @@ body{
     background:#378beb;
 }
 
-/* Logout Button */
+
 
 .logout-btn{
-    background:#e74c3c !important;
+    display:block;
+    width:100%;
+    text-align:center;
+    padding:12px;
+    background:#e74c3c;
+    color:white;
+    border-radius:8px;
+    text-decoration:none;
+    font-weight:600;
+}
+
+.logout-btn:hover{
+    background:#c0392b;
 }
 
 .logout-btn:hover{
@@ -356,4 +368,18 @@ tr:hover{
 
 .activity-feed li{
     margin-bottom:8px;
+}
+
+
+
+.quick-actions{
+    background:white;
+    padding:20px;
+    border-radius:12px;
+    margin-top:20px;
+    box-shadow:0 2px 10px rgba(0,0,0,.08);
+}
+
+.quick-actions button{
+    margin-right:10px;
 }
