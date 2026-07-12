@@ -93,6 +93,33 @@ if (!isset($_SESSION["admin"])) {
 <div class="stats">
 
 
+
+<div class="activity-feed">
+
+    <h3>Recent Activity</h3>
+
+    <ul>
+
+        <li>✅ User account created</li>
+
+        <li>✅ Branding settings updated</li>
+
+        <li>✅ Password reset completed</li>
+
+        <li>✅ System operational</li>
+
+    </ul>
+
+</div>
+
+
+
+
+
+
+
+
+
     <div class="card">
         <h3>Total Users</h3>
         <p id="totalUsers">0</p>
