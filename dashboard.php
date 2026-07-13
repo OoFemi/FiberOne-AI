@@ -273,13 +273,161 @@ Showing 0 users
 
 <div id="branding" class="section">
 
-<h1>Branding</h1>
+    <h1>Branding</h1>
 
-<br>
+    <div class="branding-container">
 
-<img
-src="logo.png"
-width="220">
+        <div class="branding-card">
+
+            <h3>Logo Settings</h3>
+
+            <img
+            src="logo.png"
+            width="220"
+            id="logoPreview">
+
+            <br><br>
+
+            <input
+            type="file"
+            id="logoFile">
+
+            <button>
+                Upload Logo
+            </button>
+
+        </div>
+
+        <div class="branding-card">
+
+            <h3>AI Settings</h3>
+
+            <label>AI Name</label>
+
+            <input
+            id="brandingAIName"
+            value="Atlas AI">
+
+            <br><br>
+
+            <label>Welcome Message</label>
+
+            <textarea
+            id="welcomeMessage"
+            rows="5">
+
+Welcome to Atlas AI.
+
+I am your intelligent assistant.
+
+            </textarea>
+
+            <br><br>
+
+            <button>
+                Save AI Settings
+            </button>
+
+        </div>
+
+    </div>
+
+
+<div class="branding-card">
+
+    <h3>Company Information</h3>
+
+    <label>Company Name</label>
+
+    <input
+    id="companyName"
+    value="Atlas Support">
+
+    <br><br>
+
+    <label>Support Email</label>
+
+    <input
+    id="supportEmail"
+    value="support@atlas.local">
+
+    <br><br>
+
+    <label>Website</label>
+
+    <input
+    id="website"
+    value="www.atlas.local">
+
+    <br><br>
+
+    <button>
+        Save Company Settings
+    </button>
+
+</div>
+
+
+
+<div class="branding-card">
+
+    <h3>Theme Colours</h3>
+
+    <label>Primary Colour</label>
+
+    <input
+    type="color"
+    value="#4da3ff">
+
+    <br><br>
+
+    <label>Sidebar Colour</label>
+
+    <input
+    type="color"
+    value="#07142f">
+
+    <br><br>
+
+    <button>
+        Save Colours
+    </button>
+
+
+
+<div class="branding-container">
+
+    <div class="branding-card">
+        ...
+    </div>
+
+    <div class="branding-card">
+        ...
+    </div>
+
+    <div class="branding-card">
+        ...
+    </div>
+
+    <div class="branding-card">
+        ...
+    </div>
+
+</div>
+`
+
+
+
+
+</div>
+
+
+
+
+
+
+
+
 
 </div>
 
