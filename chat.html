@@ -391,7 +391,7 @@ addMessage(
     "I am Olaah, your Atlas AI assistant.<br><br>" +
     "How can I help you today?<br><br>" +
     "<strong>Try asking:</strong><br><br>" +
-    "📄 Summarise a document<br>" +
+    "📄 Tell me about Atlas Support Limited<br>" +
     "📧 Write an email<br>" +
     "📊 Generate a report<br>" +
     "💡 Explain a concept",
@@ -527,18 +527,19 @@ if(!response.ok){
 
 }
 
+
 const result =
-await response.json();
+await response.text();
 
 typing.remove();
 
 addMessage(
-    result.answer ||
-    result.output ||
-    result.text ||
-    JSON.stringify(result),
+    result,
     "ai"
 );
+
+
+
     }
     catch(error){
 
