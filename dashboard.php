@@ -327,11 +327,7 @@ I am your intelligent assistant.
             <button>
                 Save AI Settings
             </button>
-
-        </div>
-
     </div>
-
 
 <div class="branding-card">
 
@@ -367,8 +363,6 @@ I am your intelligent assistant.
 
 </div>
 
-
-
 <div class="branding-card">
 
     <h3>Theme Colours</h3>
@@ -393,40 +387,8 @@ I am your intelligent assistant.
         Save Colours
     </button>
 
-
-
-<div class="branding-container">
-
-    <div class="branding-card">
-        ...
-    </div>
-
-    <div class="branding-card">
-        ...
-    </div>
-
-    <div class="branding-card">
-        ...
-    </div>
-
-    <div class="branding-card">
-        ...
-    </div>
-
 </div>
-`
-
-
-
-
 </div>
-
-
-
-
-
-
-
 
 
 </div>
@@ -458,4 +420,4 @@ Save
 
 </body>
 </html>
-``
+
