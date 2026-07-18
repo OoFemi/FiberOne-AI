@@ -1,3 +1,6 @@
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -76,7 +79,7 @@ body{
 }
 
 
-.sidebar-user strong{
+.Wsidebar-user strong{
     color:#4da3ff !important;
     font-size:16px;
     font-weight:600;
@@ -266,16 +269,29 @@ body.light-mode .sidebar-user strong{
 
     <div id="sidebarUser" class="sidebar-user">
     Welcome,<br>
-    <strong>User</strong>
+
+<?php
+echo htmlspecialchars(
+    $_SESSION["first_name"]
+);
+?>
 </div>
 
     <button onclick="newChat()">
         + New Chat
     </button>
 
+<button id="loginBtn">
+
+🔐 Login
+
+</button>
+
     <button onclick="openSettings()">
         ⚙ Settings
     </button>
+
+
 
     <button onclick="window.location.href='admin.html'">
   👤 Admin
@@ -338,28 +354,54 @@ document.getElementById(
     "chat"
 );
 
-const profileName =
-localStorage.getItem(
-    "profileName"
-);
+fetch("get_session.php")
+.then(response => response.json())
+.then(data => {
 
-if(profileName){
+    if(data.logged_in){
 
-    document.getElementById(
-    "sidebarUser"
-).innerHTML =
-"Welcome,<br><strong>" +
-profileName +
-"</strong>";
+        document.getElementById(
+            "sidebarUser"
+        ).innerHTML =
+        "Welcome,<br><strong>" +
+        data.name +
+        "</strong>";
 
-}
+    }
 
-window.onload=function(){
+});
 
-    const profileName =
-    localStorage.getItem(
-        "profileName"
-    ) || "there";
+
+window.onload = function(){
+
+    fetch("get_session.php")
+    .then(response => response.json())
+    .then(data => {
+
+        const name =
+        data.logged_in
+        ? data.name
+        : "there";
+
+        const welcomeText =
+        document.getElementById(
+            "welcomeText"
+        );
+
+        if(welcomeText){
+
+            welcomeText.innerHTML =
+            <h2 id="welcomeText">
+    👋 Welcome back, there.
+</h2> +
+            name +
+            ".";
+
+        }
+
+    });
+
+};
 
     const historyEnabled =
     localStorage.getItem(
@@ -383,20 +425,30 @@ window.onload=function(){
     }
     else{
 
+    fetch("get_session.php")
+.then(response => response.json())
+.then(data => {
+
+    const name =
+    data.logged_in
+    ? data.name
+    : "there";
+
     const welcome =
-addMessage(
-    "👋 Welcome back, " +
-    profileName +
-    ".<br><br>" +
-    "I am Olaah, your Atlas AI assistant.<br><br>" +
-    "How can I help you today?<br><br>" +
-    "<strong>Try asking:</strong><br><br>" +
-    "📄 Tell me about Atlas Support Limited<br>" +
-    "📧 Write an email<br>" +
-    "📊 Generate a report<br>" +
-    "💡 Explain a concept",
-    "ai"
-);
+    addMessage(
+        "👋 Welcome back, " +
+        name +
+        ".<br><br>" +
+        "I am Olaah, your Atlas AI assistant.<br><br>" +
+        "How can I help you today?<br><br>" +
+        "<strong>Try asking:</strong><br><br>" +
+        "📄 Tell me about Atlas Support Limited<br>" +
+        "✍️ Write an email<br>" +
+        "📊 Generate a report<br>" +
+        "💡 Explain a concept"
+    );
+
+});
 
 welcome.classList.add(
     "welcome-card"
@@ -566,6 +618,26 @@ if(theme==="light"){
     );
 
 }
+
+
+
+
+document
+.getElementById("loginBtn")
+.addEventListener(
+    "click",
+    function(){
+
+        window.location =
+        "user_login.html";
+
+    }
+);
+
+
+
+
+
 
 </script>
 
