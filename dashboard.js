@@ -456,9 +456,3 @@ async function deleteUser(id){
     }
 
 }
-
-<button
-    class="action delete"
-    onclick="deleteUser(${user.id})">
-    Delete
-</button>
