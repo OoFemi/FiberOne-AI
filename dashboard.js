@@ -93,11 +93,26 @@ async function loadUsers(){
                 <td>${user.status || ""}</td>
                 <td>${user.created_at || ""}</td>
                 <td>${user.last_login || ""}</td>
-                <td>
-                    <button class="action edit">Edit</button>
-                    <button class="action reset">Reset</button>
-                    <button class="action delete">Delete</button>
-                </td>
+                
+<td>
+    <button
+        class="action edit"
+        onclick="editUser(${user.id})">
+        Edit
+    </button>
+
+    <button
+        class="action reset"
+        onclick="resetPassword(${user.id})">
+        Reset
+    </button>
+
+    <button
+        class="action delete"
+        onclick="deleteUser(${user.id})">
+        Delete
+    </button>
+</td>
             </tr>
             `;
 
@@ -361,3 +376,89 @@ document.addEventListener(
 
     }
 );
+
+
+
+
+
+function editUser(id){
+
+    alert(
+        "Edit User ID: " + id
+    );
+
+}
+
+function resetPassword(id){
+
+    alert(
+        "Reset Password for User ID: " + id
+    );
+
+}
+
+
+
+async function deleteUser(id){
+
+    if(
+        !confirm(
+            "Delete this user?"
+        )
+    ){
+        return;
+    }
+
+    try{
+
+        const response =
+        await fetch(
+            "delete_user.php",
+            {
+                method:"POST",
+                headers:{
+                    "Content-Type":"application/json"
+                },
+                body:JSON.stringify({
+                    id:id
+                })
+            }
+        );
+
+        const result =
+        await response.json();
+
+        if(result.success){
+
+            alert(
+                "User Deleted"
+            );
+
+            loadUsers();
+
+        }else{
+
+            alert(
+                result.message
+            );
+
+        }
+
+    }
+    catch(error){
+
+        console.error(error);
+
+        alert(
+            "Delete Failed"
+        );
+
+    }
+
+}
+
+<button
+    class="action delete"
+    onclick="deleteUser(${user.id})">
+    Delete
+</button>
