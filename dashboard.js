@@ -1,5 +1,7 @@
 console.log("dashboard.js loaded");
 
+/* Navigation */
+
 function showSection(section){
 
     document
@@ -8,11 +10,16 @@ function showSection(section){
         item.classList.remove("active");
     });
 
-    document
-    .getElementById(section)
-    .classList.add("active");
+    const page =
+    document.getElementById(section);
+
+    if(page){
+        page.classList.add("active");
+    }
 
 }
+
+/* Users */
 
 async function loadUsers(){
 
@@ -24,38 +31,50 @@ async function loadUsers(){
         const users =
         await response.json();
 
-document.getElementById(
-"userCount"
-).innerText =
-"Showing " +
-users.length +
-" users";
+        const userCount =
+        document.getElementById("userCount");
 
-        console.log(users);
+        if(userCount){
+            userCount.innerText =
+            "Showing " +
+            users.length +
+            " users";
+        }
 
-        document.getElementById(
-            "totalUsers"
-        ).innerText =
-        users.length;
+        const totalUsers =
+        document.getElementById("totalUsers");
 
-        document.getElementById(
-            "totalAdmins"
-        ).innerText =
-        users.filter(
-            u => u.role === "admin"
-        ).length;
+        if(totalUsers){
+            totalUsers.innerText =
+            users.length;
+        }
 
-        document.getElementById(
-            "activeUsers"
-        ).innerText =
-        users.filter(
-            u => u.status === "Active"
-        ).length;
+        const totalAdmins =
+        document.getElementById("totalAdmins");
+
+        if(totalAdmins){
+            totalAdmins.innerText =
+            users.filter(
+                u => u.role === "admin"
+            ).length;
+        }
+
+        const activeUsers =
+        document.getElementById("activeUsers");
+
+        if(activeUsers){
+            activeUsers.innerText =
+            users.filter(
+                u => u.status === "Active"
+            ).length;
+        }
 
         const table =
-        document.getElementById(
-            "userTable"
-        );
+        document.getElementById("userTable");
+
+        if(!table){
+            return;
+        }
 
         table.innerHTML = "";
 
@@ -69,32 +88,15 @@ users.length +
                 <td>${user.last_name || ""}</td>
                 <td>${user.email || ""}</td>
                 <td>${user.username || ""}</td>
-                <td>
-${user.role === "admin"
-? '<span class="role-admin">👑 Admin</span>'
-: 'User'}
-</td>
+                <td>${user.role || ""}</td>
                 <td>${user.group_id || ""}</td>
-                <td>
-<span class="status-active">
-${user.status || "Active"}
-</span>
-</td>
+                <td>${user.status || ""}</td>
                 <td>${user.created_at || ""}</td>
                 <td>${user.last_login || ""}</td>
-
                 <td>
-                    <button class="action edit">
-                        Edit
-                    </button>
-
-                    <button class="action reset">
-                        Reset
-                    </button>
-
-                    <button class="action delete">
-                        Delete
-                    </button>
+                    <button class="action edit">Edit</button>
+                    <button class="action reset">Reset</button>
+                    <button class="action delete">Delete</button>
                 </td>
             </tr>
             `;
@@ -106,85 +108,211 @@ ${user.status || "Active"}
 
         console.error(error);
 
-        alert(
-            "Error loading users. Check console."
-        );
-
     }
 
 }
 
 async function createUser(){
 
-    const first_name =
-    document.getElementById(
-        "firstName"
-    ).value;
+    try{
 
-    const last_name =
-    document.getElementById(
-        "lastName"
-    ).value;
+        const response =
+        await fetch(
+            "create_user.php",
+            {
+                method:"POST",
+                headers:{
+                    "Content-Type":"application/json"
+                },
+                body:JSON.stringify({
 
-    const email =
-    document.getElementById(
-        "email"
-    ).value;
+                    first_name:
+                    document.getElementById("firstName").value,
 
-    const username =
-    document.getElementById(
-        "newUsername"
-    ).value;
+                    last_name:
+                    document.getElementById("lastName").value,
 
-    const password =
-    document.getElementById(
-        "newPassword"
-    ).value;
+                    email:
+                    document.getElementById("email").value,
 
-    const role =
-    document.getElementById(
-        "newRole"
-    ).value;
+                    username:
+                    document.getElementById("newUsername").value,
 
-    const group_id =
-    document.getElementById(
-        "groupId"
-    ).value;
+                    password:
+                    document.getElementById("newPassword").value,
 
-    const response =
-    await fetch(
-        "create_user.php",
-        {
-            method:"POST",
-            headers:{
-                "Content-Type":"application/json"
-            },
-            body:JSON.stringify({
-                first_name,
-                last_name,
-                email,
-                username,
-                password,
-                role,
-                group_id
-            })
-        }
-    );
+                    role:
+                    document.getElementById("newRole").value,
 
-    const result =
-    await response.json();
+                    group_id:
+                    document.getElementById("groupId").value
 
-    if(result.success){
-
-        alert(
-            "User Created"
+                })
+            }
         );
 
-        loadUsers();
+        const result =
+        await response.json();
+
+        if(result.success){
+
+            alert("User Created");
+
+            loadUsers();
+
+        }
+
+    }
+    catch(error){
+
+        console.error(error);
+
+        alert("Error creating user");
 
     }
 
 }
+
+/* Branding */
+
+async function saveAISettings(){
+
+    try{
+
+        const ai_name =
+        document.getElementById(
+            "brandingAIName"
+        ).value;
+
+        const response =
+        await fetch(
+            "save_settings.php",
+            {
+                method:"POST",
+                headers:{
+                    "Content-Type":"application/json"
+                },
+                body:JSON.stringify({
+                    ai_name
+                })
+            }
+        );
+
+        const result =
+        await response.json();
+
+        if(result.success){
+
+            alert(
+                "AI Settings Saved"
+            );
+
+        }
+
+    }
+    catch(error){
+
+        console.error(error);
+
+        alert(
+            "Failed to save AI Settings"
+        );
+
+    }
+
+}
+
+function saveCompanySettings(){
+
+    alert(
+        "Company Settings Saved"
+    );
+
+}
+
+function saveColours(){
+
+    alert(
+        "Colours Saved"
+    );
+
+}
+
+function uploadLogo(){
+
+    alert(
+        "Logo Upload Feature Coming Soon"
+    );
+
+}
+
+/* Settings */
+
+function saveSettings(){
+
+    alert(
+        "Settings Saved"
+    );
+
+}
+
+function changePassword(){
+
+    alert(
+        "Password Changed"
+    );
+
+}
+
+function saveEmailSettings(){
+
+    alert(
+        "Email Settings Saved"
+    );
+
+}
+
+function sendTestEmail(){
+
+    alert(
+        "Test Email Sent"
+    );
+
+}
+
+function createBackup(){
+
+    alert(
+        "Backup Created"
+    );
+
+}
+
+function restoreBackup(){
+
+    alert(
+        "Restore Started"
+    );
+
+}
+
+function viewLogs(){
+
+    alert(
+        "View Logs"
+    );
+
+}
+
+function exportLogs(){
+
+    alert(
+        "Logs Exported"
+    );
+
+}
+
+/* Startup */
 
 document.addEventListener(
     "DOMContentLoaded",
@@ -208,7 +336,8 @@ document.addEventListener(
                 function(){
 
                     const value =
-                    this.value.toLowerCase();
+                    this.value
+                    .toLowerCase();
 
                     document
                     .querySelectorAll(
@@ -220,9 +349,7 @@ document.addEventListener(
                         row.innerText
                         .toLowerCase()
                         .includes(value)
-
                         ? ""
-
                         : "none";
 
                     });
@@ -234,44 +361,3 @@ document.addEventListener(
 
     }
 );
-
-
-async function saveAISettings(){
-
-    const ai_name =
-    document.getElementById(
-        "brandingAIName"
-    ).value;
-
-    const response =
-    await fetch(
-        "save_settings.php",
-        {
-            method:"POST",
-            headers:{
-                "Content-Type":"application/json"
-            },
-            body:JSON.stringify({
-                ai_name
-            })
-        }
-    );
-
-    const result =
-    await response.json();
-
-    if(result.success){
-
-        alert(
-            "AI Settings Saved"
-        );
-
-    }else{
-
-        alert(
-            "Error Saving Settings"
-        );
-
-    }
-
-}

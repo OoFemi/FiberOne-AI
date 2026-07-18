@@ -324,10 +324,11 @@ I am your intelligent assistant.
 
             <br><br>
 
-            <button>
-                Save AI Settings
-            </button>
-    </div>
+            <button onclick="saveAISettings()">
+    Save AI Settings
+</button>
+
+   </div>
 
 <div class="branding-card">
 
@@ -393,27 +394,171 @@ I am your intelligent assistant.
 
 </div>
 
+
+
 <div id="settings" class="section">
 
-<h1>Settings</h1>
+    <h1>Settings</h1>
 
-<br>
+    <div class="settings-container">
 
+        <div class="settings-card">
+
+            <h3>⚙ General Settings</h3>
+
+            <label>AI Name</label>
+            <input id="aiName" value="Atlas AI">
+
+            <br><br>
+
+            <label>System Name</label>
+            <input value="Atlas Support">
+
+            <br><br>
+
+            <button class="saveBtn">
+                Save Settings
+            </button>
+
+        </div>
+
+        <div class="settings-card">
+
+            <h3>🔒 Security</h3>
+
+            <label>Current Password</label>
+            <input type="password">
+
+            <br><br>
+
+            <label>New Password</label>
+            <input type="password">
+
+           <br><br>
+
+<label>Confirm Password</label>
+<input type="password">
+
+<br><br>
+
+<label>Session Timeout (Minutes)</label>
 <input
-id="aiName"
-placeholder="AI Name">
+    type="number"
+    value="30">
 
-<button
-class="saveBtn"
-onclick="saveAIName()">
+            <br><br>
 
-Save
+            <button class="saveBtn">
+                Change Password
+            </button>
 
+        </div>
+
+        <div class="settings-card">
+
+            <h3>📧 Email Settings</h3>
+
+            <label>SMTP Server</label>
+            <input value="smtp.company.com">
+
+            <br><br>
+
+            <label>SMTP Port</label>
+            <input value="587">
+
+            <br><br>
+
+            <button class="saveBtn">
+                Save Email Settings
+            </button>
+
+<button class="saveBtn">
+    Send Test Email
 </button>
 
-</div>
+
+        </div>
+
+        <div class="settings-card">
+
+            <h3>💾 Backup & Recovery</h3>
+
+            <p>Create and restore system backups.</p>
+
+            <br>
+
+            <button class="saveBtn">
+                Create Backup
+            </button>
+
+            <button class="saveBtn">
+                Restore Backup
+            </button>
+
+        </div>
+
+    </div>
 
 </div>
+
+
+<div class="settings-card">
+
+    <h3>🖥 System Information</h3>
+
+    <p>
+        <strong>Atlas AI Version:</strong> 1.0
+    </p>
+
+    <br>
+
+    <p>
+        <strong>PHP Version:</strong>
+        <?php echo phpversion(); ?>
+    </p>
+
+    <br>
+
+    <p>
+        <strong>Database Status:</strong>
+        ✅ Connected
+    </p>
+
+    <br>
+
+    <p>
+        <strong>Server Status:</strong>
+        ✅ Online
+    </p>
+
+</div>
+
+
+
+<div class="settings-card">
+
+    <h3>📋 Activity Logs</h3>
+
+    <p>
+        View and export administrative activity logs.
+    </p>
+
+    <br>
+
+    <button class="saveBtn">
+        View Logs
+    </button>
+
+    <button class="saveBtn">
+        Export Logs
+    </button>
+
+</div>
+
+
+
+
+
 
 <script src="dashboard.js">
 </script>
