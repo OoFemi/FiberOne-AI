@@ -234,3 +234,44 @@ document.addEventListener(
 
     }
 );
+
+
+async function saveAISettings(){
+
+    const ai_name =
+    document.getElementById(
+        "brandingAIName"
+    ).value;
+
+    const response =
+    await fetch(
+        "save_settings.php",
+        {
+            method:"POST",
+            headers:{
+                "Content-Type":"application/json"
+            },
+            body:JSON.stringify({
+                ai_name
+            })
+        }
+    );
+
+    const result =
+    await response.json();
+
+    if(result.success){
+
+        alert(
+            "AI Settings Saved"
+        );
+
+    }else{
+
+        alert(
+            "Error Saving Settings"
+        );
+
+    }
+
+}
