@@ -349,59 +349,37 @@ echo htmlspecialchars(
 
 <script>
 
-const chat =
-document.getElementById(
-    "chat"
-);
+const chat = document.getElementById("chat");
 
 fetch("get_session.php")
 .then(response => response.json())
 .then(data => {
 
-    if(data.logged_in){
+    const sidebar =
+    document.getElementById("sidebarUser");
 
-        document.getElementById(
-            "sidebarUser"
-        ).innerHTML =
-        "Welcome,<br><strong>" +
-        data.name +
-        "</strong>";
+    if(sidebar){
+
+        if(data.logged_in){
+
+            sidebar.innerHTML =
+            "Welcome,<br><strong>" +
+            data.name +
+            "</strong><br>" +
+            data.group_id;
+
+        }else{
+
+            sidebar.innerHTML =
+            "Welcome,<br><strong>Guest User</strong>";
+
+        }
 
     }
 
 });
 
-
 window.onload = function(){
-
-    fetch("get_session.php")
-    .then(response => response.json())
-    .then(data => {
-
-        const name =
-        data.logged_in
-        ? data.name
-        : "there";
-
-        const welcomeText =
-        document.getElementById(
-            "welcomeText"
-        );
-
-        if(welcomeText){
-
-            welcomeText.innerHTML =
-            <h2 id="welcomeText">
-    👋 Welcome back, there.
-</h2> +
-            name +
-            ".";
-
-        }
-
-    });
-
-};
 
     const historyEnabled =
     localStorage.getItem(
@@ -425,54 +403,52 @@ window.onload = function(){
     }
     else{
 
-    fetch("get_session.php")
-.then(response => response.json())
-.then(data => {
+        fetch("get_session.php")
+        .then(response => response.json())
+        .then(data => {
 
-    const name =
-    data.logged_in
-    ? data.name
-    : "there";
+            const name =
+            data.logged_in
+            ? data.name
+            : "there";
 
-    const welcome =
-    addMessage(
-        "👋 Welcome back, " +
-        name +
-        ".<br><br>" +
-        "I am Olaah, your Atlas AI assistant.<br><br>" +
-        "How can I help you today?<br><br>" +
-        "<strong>Try asking:</strong><br><br>" +
-        "📄 Tell me about Atlas Support Limited<br>" +
-        "✍️ Write an email<br>" +
-        "📊 Generate a report<br>" +
-        "💡 Explain a concept"
-    );
+            const welcome =
+            addMessage(
+                "👋 Welcome back, " +
+                name +
+                ".<br><br>" +
+                "I am Olaah, your Atlas AI assistant.<br><br>" +
+                "How can I help you today?<br><br>" +
+                "<strong>Try asking:</strong><br><br>" +
+                "📄 Tell me about Atlas Support Limited<br>" +
+                "✍️ Write an email<br>" +
+                "📊 Generate a report<br>" +
+                "💡 Explain a concept",
+                "ai"
+            );
 
-});
+            welcome.classList.add(
+                "welcome-card"
+            );
 
-welcome.classList.add(
-    "welcome-card"
-);
+        });
 
-}
+    }
+
 };
-
-
 
 function addMessage(text,type){
 
     const div =
-    document.createElement(
-        "div"
-    );
+    document.createElement("div");
 
     div.className =
     "message " + type;
 
-    if(type==="ai"){
-        div.innerHTML=text;
+    if(type === "ai"){
+        div.innerHTML = text;
     }else{
-        div.textContent=text;
+        div.textContent = text;
     }
 
     chat.appendChild(div);
@@ -499,7 +475,7 @@ function addMessage(text,type){
 
 function clearChat(){
 
-    chat.innerHTML="";
+    chat.innerHTML = "";
 
     localStorage.removeItem(
         "savedChat"
@@ -509,7 +485,7 @@ function clearChat(){
 
 function newChat(){
 
-    chat.innerHTML="";
+    chat.innerHTML = "";
 
     addMessage(
         "👋 New chat started.<br><br>How can I help you today?",
@@ -544,7 +520,7 @@ async function send(){
         "user"
     );
 
-    input.value="";
+    input.value = "";
 
     const typing =
     addMessage(
@@ -560,37 +536,63 @@ async function send(){
             {
                 method:"POST",
                 headers:{
-                    "Content-Type":
-                    "application/json"
+                    "Content-Type":"application/json"
                 },
-                body:JSON.stringify({
-                    question
-                })
+                const session =
+await fetch(
+    "get_session.php"
+);
+
+const user =
+await session.json();
+
+const response =
+await fetch(
+    "http://10.106.10.243:5678/webhook/ask-ai",
+    {
+        method:"POST",
+        headers:{
+            "Content-Type":
+            "application/json"
+        },
+        body:JSON.stringify({
+
+            question:
+            question,
+
+            name:
+            user.name,
+
+            group_id:
+            user.group_id,
+
+            logged_in:
+            user.logged_in
+
+        })
+    }
+);
             }
         );
 
-     
+        if(!response.ok){
 
-if(!response.ok){
+            throw new Error(
+                "HTTP " +
+                response.status
+            );
 
-    throw new Error(
-        "HTTP " + response.status
-    );
+        }
 
-}
+        const result =
+        await response.text();
 
+        typing.remove();
 
-const result =
-await response.text();
-
-typing.remove();
-
-addMessage(
-    result,
-    "ai"
-);
-
-
+        addMessage(
+            result,
+            "ai"
+        );
 
     }
     catch(error){
@@ -611,7 +613,7 @@ localStorage.getItem(
     "theme"
 );
 
-if(theme==="light"){
+if(theme === "light"){
 
     document.body.classList.add(
         "light-mode"
@@ -619,25 +621,45 @@ if(theme==="light"){
 
 }
 
+fetch("get_session.php")
+.then(r => r.json())
+.then(data => {
 
+    const btn =
+    document.getElementById(
+        "loginBtn"
+    );
 
+    if(data.logged_in){
 
-document
-.getElementById("loginBtn")
-.addEventListener(
-    "click",
-    function(){
+        btn.innerHTML =
+        "🚪 Logout";
 
-        window.location =
-        "user_login.html";
+        btn.onclick =
+        function(){
+
+            window.location =
+            "logout.php";
+
+        };
 
     }
-);
+    else{
 
+        btn.innerHTML =
+        "🔐 Login";
 
+        btn.onclick =
+        function(){
 
+            window.location =
+            "user_login.html";
 
+        };
 
+    }
+
+});
 
 </script>
 
