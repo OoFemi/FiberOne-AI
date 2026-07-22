@@ -530,6 +530,43 @@ async function send(){
 
     try{
 
+        async function send(){
+
+    const input =
+    document.getElementById(
+        "question"
+    );
+
+    const question =
+    input.value.trim();
+
+    if(!question){
+        return;
+    }
+
+    addMessage(
+        question,
+        "user"
+    );
+
+    input.value = "";
+
+    const typing =
+    addMessage(
+        "🤖 Thinking...",
+        "ai"
+    );
+
+    try{
+
+        const session =
+        await fetch(
+            "get_session.php"
+        );
+
+        const user =
+        await session.json();
+
         const response =
         await fetch(
             "http://10.106.10.243:5678/webhook/ask-ai",
@@ -538,7 +575,58 @@ async function send(){
                 headers:{
                     "Content-Type":"application/json"
                 },
-                const session =
+                body:JSON.stringify({
+
+                    question:
+                    question,
+
+                    name:
+                    user.name,
+
+                    group_id:
+                    user.group_id,
+
+                    logged_in:
+                    user.logged_in
+
+                })
+            }
+        );
+
+        if(!response.ok){
+
+            throw new Error(
+                "HTTP " +
+                response.status
+            );
+
+        }
+
+        const result =
+        await response.text();
+
+        typing.remove();
+
+        addMessage(
+            result,
+            "ai"
+        );
+
+    }
+    catch(error){
+
+        console.error(error);
+
+        typing.remove();
+
+        addMessage(
+            "❌ Unable to reach Atlas AI server.",
+            "ai"
+        );
+
+    }
+
+}
 await fetch(
     "get_session.php"
 );
