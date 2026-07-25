@@ -334,11 +334,10 @@ document.addEventListener(
     "DOMContentLoaded",
     function(){
 
-        console.log(
-            "DOM loaded"
-        );
+        console.log("DOM loaded");
 
         loadUsers();
+        loadDepartments();
 
         const search =
         document.getElementById(
@@ -483,37 +482,7 @@ async function loadDepartments() {
         </option>
         `;
 
-    });
-}
-
-loadDepartments();
-document.addEventListener(
-    "DOMContentLoaded",
-    function(){
-
-        console.log(
-            "DOM loaded"
-        );
-
-        loadUsers();
-        loadDepartments();
-
-        const search =
-        document.getElementById(
-            "searchUser"
-        );
-
-        ...
-    }
-);
-
-
-
-
-
-async function loadDepartments() {
-
-    alert("Loading departments");
+   
 
     const response =
         await fetch("get_departments.php");
@@ -542,4 +511,52 @@ async function loadDepartments() {
         `;
 
     });
+}
+
+
+
+async function loadDepartments() {
+
+    console.log("Loading departments");
+
+    try {
+
+        const response =
+            await fetch("get_departments.php");
+
+        const departments =
+            await response.json();
+
+        console.log(departments);
+
+        const dropdown =
+            document.getElementById("department");
+
+        if (!dropdown) {
+            console.log("Department dropdown not found");
+            return;
+        }
+
+        dropdown.innerHTML = "";
+
+        departments.forEach(dept => {
+
+            dropdown.innerHTML += `
+            <option value="${dept.group_id}">
+                ${dept.department_name}
+            </option>
+            `;
+
+        });
+
+    }
+    catch(error) {
+
+        console.error(
+            "Department load failed",
+            error
+        );
+
+    }
+
 }
