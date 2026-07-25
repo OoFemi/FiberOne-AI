@@ -36,6 +36,12 @@ if (!isset($_SESSION["admin"])) {
         👥 Users
     </button>
 
+
+   <button onclick="showSection('departments')">
+        🏢 Departments
+    </button>
+
+
     <button onclick="showSection('branding')">
         🎨 Branding
     </button>
@@ -273,6 +279,80 @@ Showing 0 users
 
 <div id="branding" class="section">
 
+
+
+
+<div id="departments" class="section">
+
+    <h1>Departments</h1>
+
+    <div class="card">
+
+        <h3>Add Department</h3>
+
+        <input
+            id="departmentName"
+            placeholder="Department Name">
+
+        <br><br>
+
+        <button onclick="createDepartment()">
+            Add Department
+        </button>
+
+    </div>
+
+    <br>
+
+    <table>
+
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Department</th>
+                <th>Group ID</th>
+                <th>Folder</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+
+        <tbody id="departmentTable">
+
+        </tbody>
+
+    </table>
+
+</div>
+
+
+
+    <br>
+
+    <table>
+
+        <thead>
+
+        <tr>
+            <th>ID</th>
+            <th>Department</th>
+            <th>Group ID</th>
+            <th>Folder</th>
+            <th>Status</th>
+        </tr>
+
+        </thead>
+
+        <tbody id="departmentTable">
+
+        </tbody>
+
+    </table>
+
+</div>
+
+
+
+
     <h1>Branding</h1>
 
     <div class="branding-container">
@@ -292,9 +372,9 @@ Showing 0 users
             type="file"
             id="logoFile">
 
-            <button>
-                Upload Logo
-            </button>
+            <button onclick="uploadLogo()">
+    Upload Logo
+</button>
 
         </div>
 
@@ -358,9 +438,9 @@ I am your intelligent assistant.
 
     <br><br>
 
-    <button>
-        Save Company Settings
-    </button>
+    <button onclick="saveCompanySettings()">
+    Save Company Settings
+</button>
 
 </div>
 
@@ -384,9 +464,9 @@ I am your intelligent assistant.
 
     <br><br>
 
-    <button>
-        Save Colours
-    </button>
+    <button onclick="saveColours()">
+    Save Colours
+</button>
 
 </div>
 </div>
@@ -416,11 +496,17 @@ I am your intelligent assistant.
 
             <br><br>
 
-            <button class="saveBtn">
-                Save Settings
-            </button>
+            <button class="saveBtn" onclick="saveSettings()">
+    Save Settings
+</button>
 
         </div>
+
+
+
+
+
+
 
         <div class="settings-card">
 
@@ -448,9 +534,9 @@ I am your intelligent assistant.
 
             <br><br>
 
-            <button class="saveBtn">
-                Change Password
-            </button>
+            <button class="saveBtn" onclick="changePassword()">
+    Change Password
+</button>
 
         </div>
 
@@ -468,11 +554,12 @@ I am your intelligent assistant.
 
             <br><br>
 
-            <button class="saveBtn">
-                Save Email Settings
-            </button>
+            <button class="saveBtn" onclick="saveEmailSettings()">
+    Save Email Settings
+</button>
 
-<button class="saveBtn">
+
+<button class="saveBtn" onclick="sendTestEmail()">
     Send Test Email
 </button>
 
@@ -487,19 +574,17 @@ I am your intelligent assistant.
 
             <br>
 
-            <button class="saveBtn">
-                Create Backup
-            </button>
+            <button class="saveBtn" onclick="createBackup()">
+    Create Backup
+</button>
 
-            <button class="saveBtn">
-                Restore Backup
-            </button>
+            <button class="saveBtn" onclick="restoreBackup()">
+    Restore Backup
+</button>
 
         </div>
 
-    </div>
 
-</div>
 
 
 <div class="settings-card">
@@ -533,8 +618,6 @@ I am your intelligent assistant.
 
 </div>
 
-
-
 <div class="settings-card">
 
     <h3>📋 Activity Logs</h3>
@@ -545,15 +628,30 @@ I am your intelligent assistant.
 
     <br>
 
-    <button class="saveBtn">
+    <button
+        class="saveBtn"
+        onclick="viewLogs()">
         View Logs
     </button>
 
-    <button class="saveBtn">
+    <button
+        class="saveBtn"
+        onclick="exportLogs()">
         Export Logs
     </button>
 
 </div>
+
+
+
+
+    </div>
+
+</div>
+
+
+
+
 
 
 
