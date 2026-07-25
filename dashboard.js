@@ -131,6 +131,14 @@ async function createUser(){
 
     try{
 
+const departmentDropdown =
+document.getElementById("department");
+
+const departmentName =
+departmentDropdown.options[
+departmentDropdown.selectedIndex
+].text;
+
         const response =
         await fetch(
             "create_user.php",
@@ -160,8 +168,8 @@ async function createUser(){
                     document.getElementById("newRole").value,
 
                     group_id:
-document.getElementById("department").value
-
+                    document.getElementById("department").value
+                   department:departmentName,
 
                 })
             }
