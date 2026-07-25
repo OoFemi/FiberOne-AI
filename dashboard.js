@@ -533,7 +533,11 @@ async function loadDepartments() {
             document.getElementById("department");
 
         if (!dropdown) {
-            console.log("Department dropdown not found");
+
+            console.log(
+                "Department dropdown not found"
+            );
+
             return;
         }
 
@@ -542,9 +546,9 @@ async function loadDepartments() {
         departments.forEach(dept => {
 
             dropdown.innerHTML += `
-            <option value="${dept.group_id}">
-                ${dept.department_name}
-            </option>
+                <option value="${dept.group_id}">
+                    ${dept.department_name}
+                </option>
             `;
 
         });
