@@ -461,62 +461,6 @@ async function deleteUser(id){
 
 async function loadDepartments() {
 
-    const response =
-        await fetch("get_departments.php");
-
-    const departments =
-        await response.json();
-
-    const dropdown =
-        document.getElementById("department");
-
-    if (!dropdown) return;
-
-    dropdown.innerHTML = "";
-
-    departments.forEach(dept => {
-
-        dropdown.innerHTML += `
-        <option value="${dept.group_id}">
-            ${dept.department_name}
-        </option>
-        `;
-
-   
-
-    const response =
-        await fetch("get_departments.php");
-
-    const departments =
-        await response.json();
-
-    console.log(departments);
-
-    const dropdown =
-        document.getElementById("department");
-
-    if (!dropdown) {
-        alert("Dropdown not found");
-        return;
-    }
-
-    dropdown.innerHTML = "";
-
-    departments.forEach(dept => {
-
-        dropdown.innerHTML += `
-        <option value="${dept.group_id}">
-            ${dept.department_name}
-        </option>
-        `;
-
-    });
-}
-
-
-
-async function loadDepartments() {
-
     console.log("Loading departments");
 
     try {
