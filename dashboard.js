@@ -160,7 +160,8 @@ async function createUser(){
                     document.getElementById("newRole").value,
 
                     group_id:
-                    document.getElementById("groupId").value
+document.getElementById("department").value
+
 
                 })
             }
@@ -456,3 +457,32 @@ async function deleteUser(id){
     }
 
 }
+
+
+
+async function loadDepartments() {
+
+    const response =
+        await fetch("get_departments.php");
+
+    const departments =
+        await response.json();
+
+    const dropdown =
+        document.getElementById("department");
+
+    if (!dropdown) return;
+
+    dropdown.innerHTML = "";
+
+    departments.forEach(dept => {
+
+        dropdown.innerHTML += `
+        <option value="${dept.group_id}">
+            ${dept.department_name}
+        </option>
+        `;
+
+    });
+}
+

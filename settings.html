@@ -76,10 +76,23 @@ button:hover{
 
 <h3>👤 Profile Name</h3>
 
+<label>Name</label>
+
 <input
-type="text"
-id="profileName"
-placeholder="Enter your name">
+    id="profileName"
+    readonly>
+
+
+
+<br><br>
+
+<label>Department</label>
+
+<input
+    id="userGroup"
+    readonly>
+``
+
 
 </div>
 
@@ -222,7 +235,39 @@ function clearHistory(){
 
 loadSettings();
 
+
+
+
+
+
+fetch("get_session.php")
+.then(response => response.json())
+.then(data => {
+
+    if(data.logged_in){
+
+        document
+        .getElementById("profileName")
+        .value = data.name;
+
+        document
+        .getElementById("userEmail")
+        .value = data.email;
+
+        document
+        .getElementById("userGroup")
+        .value = data.group_id;
+
+    }
+
+});
+
+
+
+
 </script>
+
+
 
 </body>
 </html>
