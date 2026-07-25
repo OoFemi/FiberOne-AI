@@ -486,3 +486,60 @@ async function loadDepartments() {
     });
 }
 
+loadDepartments();
+document.addEventListener(
+    "DOMContentLoaded",
+    function(){
+
+        console.log(
+            "DOM loaded"
+        );
+
+        loadUsers();
+        loadDepartments();
+
+        const search =
+        document.getElementById(
+            "searchUser"
+        );
+
+        ...
+    }
+);
+
+
+
+
+
+async function loadDepartments() {
+
+    alert("Loading departments");
+
+    const response =
+        await fetch("get_departments.php");
+
+    const departments =
+        await response.json();
+
+    console.log(departments);
+
+    const dropdown =
+        document.getElementById("department");
+
+    if (!dropdown) {
+        alert("Dropdown not found");
+        return;
+    }
+
+    dropdown.innerHTML = "";
+
+    departments.forEach(dept => {
+
+        dropdown.innerHTML += `
+        <option value="${dept.group_id}">
+            ${dept.department_name}
+        </option>
+        `;
+
+    });
+}
