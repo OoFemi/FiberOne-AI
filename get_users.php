@@ -16,6 +16,7 @@ SELECT
     username,
     role,
     group_id,
+    department,
     status,
     created_at,
     last_login

@@ -223,6 +223,14 @@ if (!isset($_SESSION["admin"])) {
 id="searchUser"
 placeholder="🔍 Search users...">
 
+<select id="departmentFilter">
+
+    <option value="">
+        All Departments
+    </option>
+
+</select>
+
 <p id="userCount">
 Showing 0 users
 </p>
@@ -241,6 +249,7 @@ Showing 0 users
 <th>Username</th>
 <th>Role</th>
 <th>Group ID</th>
+<th>Department</th>
 <th>Status</th>
 <th>Created</th>
 <th>Last Login</th>

@@ -573,12 +573,12 @@ async function send(){
 
         
 
-const result = await response.json();
+const result = await response.text();
 
 typing.remove();
 
 addMessage(
-    result.answer || result.response || "No response",
+    result,
     "ai"
 );
 

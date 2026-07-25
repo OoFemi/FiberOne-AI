@@ -32,7 +32,12 @@ if(
 
     $_SESSION["logged_in"] = true;
     $_SESSION["user_id"] = $user["id"];
-    $_SESSION["name"] =$user["name"];
+    $_SESSION["name"] =
+    trim(
+        ($user["first_name"] ?? "") .
+        " " .
+        ($user["last_name"] ?? "")
+    );
     $_SESSION["email"] =$user["email"];
     $_SESSION["group_id"] =$user["group_id"];
 

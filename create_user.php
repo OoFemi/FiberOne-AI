@@ -9,6 +9,11 @@ $data = json_decode(
     true
 );
 
+
+$department =
+$data["department"] ?? "";
+
+
 /* Validation */
 
 if(
@@ -111,17 +116,19 @@ INSERT INTO users
     password_hash,
     role,
     group_id,
+    department,
     status
 )
 VALUES
 (
-    ?, ?, ?, ?, ?, ?, ?, ?, ?
+    ?, ?, ?, ?, ?, ?, ?, ?, ?, ?
 )
 "
 );
 
+
 $stmt->bind_param(
-    "sssssssss",
+    "ssssssssss",
     $user_id,
     $first_name,
     $last_name,
@@ -130,8 +137,11 @@ $stmt->bind_param(
     $passwordHash,
     $role,
     $group_id,
+    $department,
     $status
 );
+
+
 
 if($stmt->execute()){
 

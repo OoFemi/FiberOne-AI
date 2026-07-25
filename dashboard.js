@@ -90,6 +90,7 @@ async function loadUsers(){
                 <td>${user.username || ""}</td>
                 <td>${user.role || ""}</td>
                 <td>${user.group_id || ""}</td>
+                <td>${user.department || ""}</td>
                 <td>${user.status || ""}</td>
                 <td>${user.created_at || ""}</td>
                 <td>${user.last_login || ""}</td>
@@ -168,7 +169,7 @@ departmentDropdown.selectedIndex
                     document.getElementById("newRole").value,
 
                     group_id:
-                    document.getElementById("department").value
+                    document.getElementById("department").value,
                    department:departmentName,
 
                 })
@@ -346,7 +347,7 @@ document.addEventListener(
 
         loadUsers();
         loadDepartments();
-
+        loadDepartmentFilter();
         const search =
         document.getElementById(
             "searchUser"
@@ -374,6 +375,46 @@ document.addEventListener(
                         .includes(value)
                         ? ""
                         : "none";
+
+                     async function loadDepartmentFilter() {
+
+    try {
+
+        const response =
+            await fetch("get_departments.php");
+
+        const departments =
+            await response.json();
+
+        const filter =
+            document.getElementById(
+                "departmentFilter"
+            );
+
+        if (!filter) {
+            return;
+        }
+
+        departments.forEach(dept => {
+
+            filter.innerHTML += `
+                <option value="${dept.department_name}">
+                    ${dept.department_name}
+                </option>
+            `;
+
+        });
+
+    }
+    catch(error) {
+
+        console.error(error);
+
+    }
+
+}
+
+
 
                     });
 
