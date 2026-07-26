@@ -14,19 +14,15 @@ require "db.php";
 
 $departments = [];
 
-$result =
-$conn->query(
-"SELECT department_name
-FROM departments
-WHERE status='Active'
-ORDER BY department_name"
-);
+$result = $conn->query("
+    SELECT department_name
+    FROM departments
+    WHERE status='Active'
+    ORDER BY department_name
+");
 
-while (
-    $row = $result->fetch_assoc()
-) {
-    $departments[] =
-    $row["department_name"];
+while ($row = $result->fetch_assoc()) {
+    $departments[] = $row["department_name"];
 }
 
 ?>
@@ -38,9 +34,8 @@ while (
 
 <meta charset="UTF-8">
 
-<meta
-name="viewport"
-content="width=device-width, initial-scale=1.0">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
 
 <title>Document Management</title>
 
@@ -53,13 +48,8 @@ content="width=device-width, initial-scale=1.0">
 }
 
 body{
-
-    font-family:
-    'Segoe UI',
-    sans-serif;
-
+    font-family:'Segoe UI',sans-serif;
     background:#f4f6fa;
-
 }
 
 .header{
@@ -78,23 +68,18 @@ body{
 
 }
 
-.header h1{
-
-    font-size:28px;
-
-}
-
 .container{
 
     width:95%;
 
     margin:auto;
 
-    margin-top:30px;
+    margin-top:25px;
 
 }
 
-.card{
+.card,
+.table-card{
 
     background:white;
 
@@ -102,13 +87,15 @@ body{
 
     padding:25px;
 
+    margin-bottom:25px;
+
     box-shadow:
-    0 2px 10px
-    rgba(0,0,0,.1);
+    0 2px 10px rgba(0,0,0,.08);
 
 }
 
-.card h2{
+.card h2,
+.table-card h2{
 
     margin-bottom:20px;
 
@@ -131,7 +118,7 @@ input[type=file]{
 
     padding:12px;
 
-    margin-bottom:20px;
+    margin-bottom:18px;
 
     border:1px solid #ccc;
 
@@ -153,8 +140,6 @@ input[type=file]{
 
     cursor:pointer;
 
-    font-size:14px;
-
 }
 
 .upload-btn:hover{
@@ -163,19 +148,17 @@ input[type=file]{
 
 }
 
-.table-card{
+.back-btn{
 
-    margin-top:25px;
+    color:white;
 
-    background:white;
+    text-decoration:none;
 
-    border-radius:10px;
+}
 
-    padding:25px;
+.back-btn:hover{
 
-    box-shadow:
-    0 2px 10px
-    rgba(0,0,0,.1);
+    text-decoration:underline;
 
 }
 
@@ -203,22 +186,71 @@ td{
 
     padding:12px;
 
-    border-bottom:
-    1px solid #ddd;
+    border-bottom:1px solid #ddd;
 
 }
 
-.back-btn{
-
-    color:white;
+.action-btn{
 
     text-decoration:none;
 
+    padding:6px 10px;
+
+    border-radius:5px;
+
+    color:white;
+
+    font-size:12px;
+
 }
 
-.back-btn:hover{
+.view-btn{
 
-    text-decoration:underline;
+    background:#28a745;
+
+}
+
+.delete-btn{
+
+    background:#dc3545;
+
+}
+
+.success{
+
+    background:#d4edda;
+
+    color:#155724;
+
+    padding:15px;
+
+    border-radius:8px;
+
+    margin-bottom:20px;
+
+}
+
+.error{
+
+    background:#f8d7da;
+
+    color:#721c24;
+
+    padding:15px;
+
+    border-radius:8px;
+
+    margin-bottom:20px;
+
+}
+
+pre{
+
+    background:#f5f5f5;
+
+    padding:10px;
+
+    border-radius:5px;
 
 }
 
@@ -233,16 +265,17 @@ td{
     <h1>Document Management</h1>
 
     <a
-    href="dashboard.php"
-    class="back-btn">
+        href="dashboard.php"
+        class="back-btn">
 
-    ← Back to Dashboard
+        ← Back to Dashboard
 
     </a>
 
 </div>
 
 <div class="container">
+
 <?php
 
 if (isset($_GET["upload"])) {
@@ -250,14 +283,8 @@ if (isset($_GET["upload"])) {
     if ($_GET["upload"] === "success") {
 
         echo '
-        <div style="
-            background:#d4edda;
-            color:#155724;
-            padding:15px;
-            margin-bottom:20px;
-            border-radius:8px;
-        ">
-            ✅ Document uploaded successfully.
+        <div class="success">
+        ✅ Document uploaded successfully.
         </div>';
 
     }
@@ -265,132 +292,198 @@ if (isset($_GET["upload"])) {
     if ($_GET["upload"] === "failed") {
 
         echo '
-        <div style="
-            background:#f8d7da;
-            color:#721c24;
-            padding:15px;
-            margin-bottom:20px;
-            border-radius:8px;
-        ">
-            ❌ Document upload failed.
+        <div class="error">
+        ❌ Document upload failed.
         </div>';
 
     }
 
 }
+
 ?>
 
-    <div class="card">
+<div class="card">
 
-        <h2>Upload Document</h2>
+    <h2>Upload Document</h2>
 
-            upload_documents.php
+    upload_document.php
 
-            <label>
-                Department
-            </label>
+        <label>Department</label>
 
-            <select
+        <select
             name="department"
             required>
 
-                <?php
-                foreach (
-                    $departments
-                    as $department
-                ) {
-                ?>
+            <?php foreach ($departments as $department): ?>
 
-                <option
-                value="<?=
-                htmlspecialchars(
-                $department
-                )
-                ?>">
-                <?= htmlspecialchars(
-                $department
-                ) ?>
-                </option>
+            <option
+                value="<?= htmlspecialchars($department) ?>">
 
-                <?php
-                }
-                ?>
+                <?= htmlspecialchars($department) ?>
 
-            </select>
+            </option>
 
-            <label>
-                Document
-            </label>
+            <?php endforeach; ?>
 
-            <input
+        </select>
+
+        <label>Document</label>
+
+        <input
             type="file"
             name="document"
             required>
 
-            <button
+        <button
             type="submit"
             class="upload-btn">
 
             Upload Document
 
-            </button>
+        </button>
 
-        </form>
+    </form>
 
-    </div>
+</div>
 
-    <div class="table-card">
+<div class="table-card">
 
-        <h2>
-            Upload Instructions
-        </h2>
+    <h2>Uploaded Documents</h2>
 
-        <p>
+    <table>
 
-        Supported files:
+        <tr>
 
-        </p>
+            <th>File Name</th>
 
-        <br>
+            <th>Department</th>
 
-        <ul>
+            <th>Size</th>
 
-            <li>PDF</li>
+            <th>Actions</th>
 
-            <li>DOCX</li>
+        </tr>
 
-            <li>TXT</li>
+        <?php
 
-        </ul>
+        $baseFolder =
+        "/home/femi/n8n-production/files";
 
-        <br>
+        $folders =
+        glob($baseFolder . "/*");
 
-        <p>
+        foreach ($folders as $folder) {
 
-        Files uploaded to:
+            if (!is_dir($folder)) {
+                continue;
+            }
 
-        </p>
+            $department =
+            basename($folder);
 
-        <br>
+            $files =
+            glob($folder . "/*");
 
-<pre>
-/home/femi/n8n-production/files/{department}
-</pre>
+            foreach ($files as $file) {
 
-        <br>
+                if (!is_file($file)) {
+                    continue;
+                }
 
-        <p>
+                $fileName =
+                basename($file);
 
-        After upload, documents can
-        be indexed into Atlas AI
-        through the ingestion workflow.
+                $size =
+                round(
+                    filesize($file) / 1024,
+                    2
+                );
 
-        </p>
+                ?>
 
-    </div>
+                <tr>
+
+                    <td>
+                        <?= htmlspecialchars($fileName) ?>
+                    </td>
+
+                    <td>
+                        <?= htmlspecialchars($department) ?>
+                    </td>
+
+                    <td>
+                        <?= $size ?> KB
+                    </td>
+
+                    <td>
+
+                        =<?= urlencode($fileName) ?>">
+
+                        View
+
+                        </a>
+
+                         ?>&file=<?= urlencode($fileName) ?>"
+                        onclick="return confirm('Delete this document?')">
+
+                        Delete
+
+                        </a>
+
+                    </td>
+
+                </tr>
+
+                <?php
+
+            }
+
+        }
+
+        ?>
+
+    </table>
+
+</div>
+
+<div class="table-card">
+
+<h2>Upload Instructions</h2>
+
+<p>Supported files:</p>
+
+<br>
+
+<ul>
+
+<li>PDF</li>
+<li>DOCX</li>
+<li>TXT</li>
+<li>XLSX</li>
+<li>CSV</li>
+
+</ul>
+
+<br>
+
+<p>Files uploaded to:</p>
+
+<br>
+
+<pre>/home/femi/n8n-production/files/{department}</pre>
+
+<br>
+
+<p>
+
+After upload, documents can be indexed
+into Atlas AI through the ingestion workflow.
+
+</p>
+
+</div>
 
 </div>
 
 </body>
-
 </html>
