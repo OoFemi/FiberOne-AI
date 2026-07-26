@@ -43,6 +43,14 @@ if (
   <a href="departments.php">      
   <button>🏢 Departments</button>    </a>
 
+<a href="documents.php "> 
+   <button> 📄 Local Files upload</button>
+</a>
+<a href="do.php">
+   <button> 📄 SharePoint Files Connect</button>
+</a>
+
+
     <button onclick="showSection('branding')">
         🎨 Branding
     </button>
