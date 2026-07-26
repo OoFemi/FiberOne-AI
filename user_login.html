@@ -68,10 +68,30 @@ input{
     font-size: 16px;
     font-weight: bold;
     cursor: pointer;
+    margin-bottom: 10px;
 }
 
 .login-btn:hover{
     background: #2d89ef;
+}
+
+.guest-btn{
+    display: block;
+    width: 100%;
+    padding: 15px;
+    border: 2px solid #4da3ff;
+    border-radius: 10px;
+    background: transparent;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    text-decoration: none;
+    text-align: center;
+    cursor: pointer;
+}
+
+.guest-btn:hover{
+    background: rgba(77, 163, 255, 0.1);
 }
 
 .notice{
@@ -106,7 +126,6 @@ input{
     </div>
 
     <form action="user_login.php" method="POST">
-
         <input
             type="email"
             name="email"
@@ -124,15 +143,12 @@ input{
             class="login-btn">
             Sign In
         </button>
-
     </form>
 
-guest_login.php
+    <a href="chat.html" class="guest-btn">
+        Continue as Guest
+    </a>
 
-    Continue as Guest
-
-</button>
-`
     <div class="notice">
         Authorized use only.<br>
         Activity may be monitored and audited.

@@ -55,19 +55,15 @@ if (
     $_SESSION["admin"] = true;
     $_SESSION["username"] = $username;
 
-    echo json_encode([
-        "success" => true,
-        "role" => $user["role"]
-    ]);
+    header("Location: dashboard.php");
+    exit;
 
 }
+
 else
 {
 
-    echo json_encode([
-        "success" => false
-    ]);
+    header("Location: admin.html");
+    exit;
 
 }
-
-?>
