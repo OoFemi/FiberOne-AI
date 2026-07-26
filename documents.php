@@ -25,6 +25,31 @@ while ($row = $result->fetch_assoc()) {
     $departments[] = $row["department_name"];
 }
 
+$baseFolder =
+"/home/femi/n8n-production/files";
+
+$totalDocuments = 0;
+
+$folders = glob($baseFolder . "/*");
+
+foreach ($folders as $folder) {
+
+    if (!is_dir($folder)) {
+        continue;
+    }
+
+    $files = glob($folder . "/*");
+
+    foreach ($files as $file) {
+
+        if (is_file($file)) {
+            $totalDocuments++;
+        }
+
+    }
+
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -34,8 +59,9 @@ while ($row = $result->fetch_assoc()) {
 
 <meta charset="UTF-8">
 
-<meta name="viewport"
-      content="width=device-width, initial-scale=1.0">
+<meta
+name="viewport"
+content="width=device-width, initial-scale=1.0">
 
 <title>Document Management</title>
 
@@ -48,8 +74,11 @@ while ($row = $result->fetch_assoc()) {
 }
 
 body{
+
     font-family:'Segoe UI',sans-serif;
+
     background:#f4f6fa;
+
 }
 
 .header{
@@ -78,6 +107,49 @@ body{
 
 }
 
+.stats{
+
+    display:flex;
+
+    gap:20px;
+
+    margin-bottom:25px;
+
+}
+
+.stat-card{
+
+    flex:1;
+
+    background:white;
+
+    padding:20px;
+
+    border-radius:10px;
+
+    text-align:center;
+
+    box-shadow:
+    0 2px 10px rgba(0,0,0,.08);
+
+}
+
+.stat-card h3{
+
+    color:#1d2755;
+
+    margin-bottom:10px;
+
+}
+
+.stat-card p{
+
+    font-size:28px;
+
+    font-weight:bold;
+
+}
+
 .card,
 .table-card{
 
@@ -94,8 +166,7 @@ body{
 
 }
 
-.card h2,
-.table-card h2{
+h2{
 
     margin-bottom:20px;
 
@@ -112,17 +183,18 @@ label{
 }
 
 select,
-input[type=file]{
+input[type=file],
+input[type=text]{
 
     width:100%;
 
     padding:12px;
 
-    margin-bottom:18px;
-
     border:1px solid #ccc;
 
     border-radius:6px;
+
+    margin-bottom:15px;
 
 }
 
@@ -156,12 +228,6 @@ input[type=file]{
 
 }
 
-.back-btn:hover{
-
-    text-decoration:underline;
-
-}
-
 table{
 
     width:100%;
@@ -190,29 +256,29 @@ td{
 
 }
 
-.action-btn{
+.status{
 
-    text-decoration:none;
+    color:green;
 
-    padding:6px 10px;
-
-    border-radius:5px;
-
-    color:white;
-
-    font-size:12px;
+    font-weight:bold;
 
 }
 
 .view-btn{
 
-    background:#28a745;
+    color:#28a745;
+
+    text-decoration:none;
 
 }
 
 .delete-btn{
 
-    background:#dc3545;
+    color:#dc3545;
+
+    text-decoration:none;
+
+    margin-left:10px;
 
 }
 
@@ -244,16 +310,6 @@ td{
 
 }
 
-pre{
-
-    background:#f5f5f5;
-
-    padding:10px;
-
-    border-radius:5px;
-
-}
-
 </style>
 
 </head>
@@ -265,10 +321,10 @@ pre{
     <h1>Document Management</h1>
 
     <a
-        href="dashboard.php"
-        class="back-btn">
+    href="dashboard.php"
+    class="back-btn">
 
-        ← Back to Dashboard
+    ← Back to Dashboard
 
     </a>
 
@@ -302,188 +358,207 @@ if (isset($_GET["upload"])) {
 
 ?>
 
+<div class="stats">
+
+    <div class="stat-card">
+
+        <h3>Documents</h3>
+
+        <p><?= $totalDocuments ?></p>
+
+    </div>
+
+    <div class="stat-card">
+
+        <h3>Departments</h3>
+
+        <p><?= count($departments) ?></p>
+
+    </div>
+
+    <div class="stat-card">
+
+        <h3>Status</h3>
+
+        <p>Live</p>
+
+    </div>
+
+</div>
+
 <div class="card">
 
-    <h2>Upload Document</h2>
+<h2>Upload Document</h2>
 
-    upload_document.php
+upload_document.phpenctype="multipart/form-data">
 
-        <label>Department</label>
+<label>Department</label>
 
-        <select
-            name="department"
-            required>
+<select
+name="department"
+required>
 
-            <?php foreach ($departments as $department): ?>
+<?php foreach ($departments as $department): ?>
 
-            <option
-                value="<?= htmlspecialchars($department) ?>">
+<option
+value="<?= htmlspecialchars($department) ?>">
 
-                <?= htmlspecialchars($department) ?>
+<?= htmlspecialchars($department) ?>
 
-            </option>
+</option>
 
-            <?php endforeach; ?>
+<?php endforeach; ?>
 
-        </select>
+</select>
 
-        <label>Document</label>
+<label>Document</label>
 
-        <input
-            type="file"
-            name="document"
-            required>
+<input
+type="file"
+name="document"
+accept=".pdf,.docx,.txt,.xlsx,.csv"
+required>
 
-        <button
-            type="submit"
-            class="upload-btn">
+<button
+type="submit"
+class="upload-btn">
 
-            Upload Document
+Upload Document
 
-        </button>
+</button>
 
-    </form>
+</form>
 
 </div>
 
 <div class="table-card">
 
-    <h2>Uploaded Documents</h2>
+<h2>Uploaded Documents</h2>
 
-    <table>
+<input
+type="text"
+id="docSearch"
+placeholder="Search documents...">
+
+<table id="documentsTable">
+
+<thead>
+
+<tr>
+
+<th>File Name</th>
+<th>Type</th>
+<th>Department</th>
+<th>Status</th>
+<th>Size</th>
+
+</tr>
+
+</thead>
+
+<tbody>
+
+<?php
+
+foreach ($folders as $folder) {
+
+    if (!is_dir($folder)) {
+        continue;
+    }
+
+    $department =
+    basename($folder);
+
+    $files =
+    glob($folder . "/*");
+
+    foreach ($files as $file) {
+
+        if (!is_file($file)) {
+            continue;
+        }
+
+        $fileName =
+        basename($file);
+
+        $type =
+        strtoupper(
+        pathinfo(
+        $fileName,
+        PATHINFO_EXTENSION
+        ));
+
+        $size =
+        round(
+        filesize($file)
+        / 1024,
+        2
+        );
+
+        ?>
 
         <tr>
 
-            <th>File Name</th>
+            <td><?= htmlspecialchars($fileName) ?></td>
 
-            <th>Department</th>
+            <td><?= $type ?></td>
 
-            <th>Size</th>
+            <td><?= htmlspecialchars($department) ?></td>
 
-            <th>Actions</th>
+            <td class="status">
+                🟢 Indexed
+            </td>
+
+            <td>
+                <?= $size ?> KB
+            </td>
 
         </tr>
 
         <?php
 
-        $baseFolder =
-        "/home/femi/n8n-production/files";
+    }
 
-        $folders =
-        glob($baseFolder . "/*");
+}
 
-        foreach ($folders as $folder) {
+?>
 
-            if (!is_dir($folder)) {
-                continue;
-            }
+</tbody>
 
-            $department =
-            basename($folder);
-
-            $files =
-            glob($folder . "/*");
-
-            foreach ($files as $file) {
-
-                if (!is_file($file)) {
-                    continue;
-                }
-
-                $fileName =
-                basename($file);
-
-                $size =
-                round(
-                    filesize($file) / 1024,
-                    2
-                );
-
-                ?>
-
-                <tr>
-
-                    <td>
-                        <?= htmlspecialchars($fileName) ?>
-                    </td>
-
-                    <td>
-                        <?= htmlspecialchars($department) ?>
-                    </td>
-
-                    <td>
-                        <?= $size ?> KB
-                    </td>
-
-                    <td>
-
-                        =<?= urlencode($fileName) ?>">
-
-                        View
-
-                        </a>
-
-                         ?>&file=<?= urlencode($fileName) ?>"
-                        onclick="return confirm('Delete this document?')">
-
-                        Delete
-
-                        </a>
-
-                    </td>
-
-                </tr>
-
-                <?php
-
-            }
-
-        }
-
-        ?>
-
-    </table>
-
-</div>
-
-<div class="table-card">
-
-<h2>Upload Instructions</h2>
-
-<p>Supported files:</p>
-
-<br>
-
-<ul>
-
-<li>PDF</li>
-<li>DOCX</li>
-<li>TXT</li>
-<li>XLSX</li>
-<li>CSV</li>
-
-</ul>
-
-<br>
-
-<p>Files uploaded to:</p>
-
-<br>
-
-<pre>/home/femi/n8n-production/files/{department}</pre>
-
-<br>
-
-<p>
-
-After upload, documents can be indexed
-into Atlas AI through the ingestion workflow.
-
-</p>
+</table>
 
 </div>
 
 </div>
+
+<script>
+
+document
+.getElementById("docSearch")
+.addEventListener("keyup", function() {
+
+    let filter =
+    this.value.toLowerCase();
+
+    let rows =
+    document.querySelectorAll(
+    "#documentsTable tbody tr"
+    );
+
+    rows.forEach(row => {
+
+        row.style.display =
+        row.innerText
+        .toLowerCase()
+        .includes(filter)
+        ? ""
+        : "none";
+
+    });
+
+});
+
+</script>
 
 </body>
 </html>
