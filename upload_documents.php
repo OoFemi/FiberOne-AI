@@ -10,10 +10,19 @@ if (
     exit;
 }
 
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
 if (
     !isset($_FILES["document"])
 ) {
-    die("No file uploaded.");
+
+    header(
+        "Location: documents.php?upload=failed"
+    );
+
+    exit;
+
 }
 
 $department =
@@ -21,26 +30,46 @@ trim(
     $_POST["department"] ?? ""
 );
 
-if ($department === "") {
-    die("Department not selected.");
+if (
+    $department === ""
+) {
+
+    header(
+        "Location: documents.php?upload=failed"
+    );
+
+    exit;
+
 }
 
-$baseDirectory =
+$baseFolder =
 "/home/femi/n8n-production/files/";
 
 $departmentFolder =
-$baseDirectory .
+$baseFolder .
 $department .
 "/";
 
 if (
     !is_dir($departmentFolder)
 ) {
-    mkdir(
-        $departmentFolder,
-        0775,
-        true
-    );
+
+    if (
+        !mkdir(
+            $departmentFolder,
+            0775,
+            true
+        )
+    ) {
+
+        header(
+            "Location: documents.php?upload=failed"
+        );
+
+        exit;
+
+    }
+
 }
 
 $fileName =
@@ -59,15 +88,11 @@ strtolower(
 $allowedExtensions = [
 
     "pdf",
-
+    "doc",
     "docx",
-
     "txt",
-
     "csv",
-
     "xlsx",
-
     "xls"
 
 ];
@@ -79,9 +104,24 @@ if (
     )
 ) {
 
-    die(
-        "Only PDF, DOCX, TXT, CSV, XLSX and XLS files are allowed."
+    header(
+        "Location: documents.php?upload=failed"
     );
+
+    exit;
+
+}
+
+if (
+    $_FILES["document"]["error"] !==
+    UPLOAD_ERR_OK
+) {
+
+    header(
+        "Location: documents.php?upload=failed"
+    );
+
+    exit;
 
 }
 
@@ -90,15 +130,10 @@ $departmentFolder .
 $fileName;
 
 if (
-
     move_uploaded_file(
-
         $_FILES["document"]["tmp_name"],
-
         $targetFile
-
     )
-
 ) {
 
     header(
@@ -108,13 +143,11 @@ if (
     exit;
 
 }
-else {
 
-    header(
-        "Location: documents.php?upload=failed"
-    );
+header(
+    "Location: documents.php?upload=failed"
+);
 
-    exit;
+exit;
 
-}
 ?>
