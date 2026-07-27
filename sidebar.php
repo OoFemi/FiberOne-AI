@@ -1,32 +1,32 @@
-<!-- sidebar.php -->
-
 <div class="sidebar">
 
     <h2>Atlas AI</h2>
 
-    <button onclick="location.hrefoard
+    dashboard.php
+        📊 Dashboard
     </button>
 
     users.php
         👥 Users
     </button>
 
-    <button onclick="location.href='departments</button>
+    <buttonents.php
+        🏢 Departments
+    </button>
 
-    <ocuments.php
+    documents.php
         📄 Local Files Upload
     </button>
 
-    <button onclick="location.href='do Connect
+    <button onclick="window.location.href    </button>
+
+    <button onclick=     🎨 Branding
     </button>
 
-    branding.php
-        🎨 Branding
+    settings.php
+        ⚙ Settings
     </button>
 
-    <button onclick="location.href='settingstton>
-
-    <button class="logout-btn"
-            </button>
-
-</div>
+    <button
+        class="logout-btn"
+        onclick="window.location

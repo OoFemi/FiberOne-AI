@@ -185,36 +185,37 @@ td{
 
     <h2>Atlas AI</h2>
 
-    dashboard.php
+    <button onclick="location.href='dashboard.php'">
         📊 Dashboard
     </button>
 
-    users.php
+    <button onclick="location.href='users.php'">
         👥 Users
     </button>
 
-    departments.php
+    <button onclick="location.href='departments.php'">
         🏢 Departments
     </button>
 
-    documents.php
+    <button onclick="location.href='documents.php'">
         📄 Documents
     </button>
 
-    <button onclick📂 SharePoint
+    <button onclick="location.href='sharepoint.php'">
+        📁 SharePoint
     </button>
 
-    branding.php
+    <button onclick="location.href='branding.php'">
         🎨 Branding
     </button>
 
-    settings.php
+    <button onclick="location.href='settings.php'">
         ⚙ Settings
     </button>
 
-    <button
-        class="logout"
-        </button>
+    <button class="logout" onclick="location.href='logout.php'">
+        🚪 Logout
+    </button>
 
 </div>
 
@@ -282,7 +283,7 @@ td{
 
                 <td><?= htmlspecialchars($row["folder_name"]) ?></td>
 
-                <td><?= htmlspecialchars($row["status"]) ?></td>
+                <td><?= htmlspecialchars($row["status"] ?? '') ?></td>
 
             </tr>
 
