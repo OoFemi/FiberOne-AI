@@ -1,8 +1,5 @@
 <?php
 
-ini_set('display_errors', 1);
-error_reporting(E_ALL);
-
 session_start();
 
 if (!isset($_SESSION["admin"])) {
@@ -11,6 +8,8 @@ if (!isset($_SESSION["admin"])) {
 }
 
 require_once 'db.php';
+
+/* ADD DEPARTMENT */
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
@@ -28,17 +27,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 )
             );
 
-        $folder =
-            "/home/femi/n8n-production/files/" .
-            $department;
-
-        if (!is_dir($folder)) {
-            mkdir($folder, 0775, true);
-        }
-
         $stmt = $conn->prepare(
             "INSERT INTO departments
-            (department_name,group_id,folder_name)
+            (department_name, group_id, folder_name)
             VALUES (?,?,?)"
         );
 
@@ -56,12 +47,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     exit;
 }
 
-$result = $conn->query(
-"
-SELECT *
-FROM departments
-ORDER BY department_name
-"
+$result =
+$conn->query(
+"SELECT *
+ FROM departments
+ ORDER BY department_name"
 );
 
 ?>
@@ -73,16 +63,96 @@ ORDER BY department_name
 <meta charset="UTF-8">
 <title>Departments</title>
 
-admin.css
-
 <style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:Segoe UI,sans-serif;
+    background:#f4f6f9;
+}
+
+/* SIDEBAR */
+
+.sidebar{
+    position:fixed;
+    left:0;
+    top:0;
+
+    width:220px;
+    height:100vh;
+
+    background:#001845;
+
+    padding:20px;
+}
+
+.sidebar h2{
+    color:white;
+    margin-bottom:25px;
+}
+
+.sidebar button{
+
+    width:100%;
+    height:45px;
+
+    margin-bottom:10px;
+
+    border:none;
+    border-radius:8px;
+
+    background:#4da3ff;
+
+    color:white;
+
+    cursor:pointer;
+
+    font-size:14px;
+}
+
+.logout{
+    background:#e74c3c !important;
+}
+
+/* CONTENT */
+
+.content{
+    margin-left:220px;
+    padding:30px;
+}
 
 .card{
     background:white;
     padding:20px;
     border-radius:10px;
     margin-bottom:20px;
-    box-shadow:0 2px 8px rgba(0,0,0,.1);
+
+    box-shadow:
+    0 2px 8px rgba(0,0,0,.1);
+}
+
+input{
+    width:300px;
+    padding:10px;
+}
+
+.submit-btn{
+
+    background:#4da3ff;
+    color:white;
+
+    border:none;
+
+    padding:10px 15px;
+
+    border-radius:6px;
+
+    cursor:pointer;
 }
 
 table{
@@ -100,16 +170,7 @@ th{
 
 td{
     padding:12px;
-    border-bottom:1px solid #eee;
-}
-
-input{
-    padding:10px;
-    width:250px;
-}
-
-button{
-    padding:10px 15px;
+    border-bottom:1px solid #ddd;
 }
 
 </style>
@@ -118,17 +179,60 @@ button{
 
 <body>
 
-<?php include 'sidebar.php'; ?>
+<!-- SIDEBAR -->
+
+<div class="sidebar">
+
+    <h2>Atlas AI</h2>
+
+    dashboard.php
+        📊 Dashboard
+    </button>
+
+    users.php
+        👥 Users
+    </button>
+
+    departments.php
+        🏢 Departments
+    </button>
+
+    documents.php
+        📄 Documents
+    </button>
+
+    <button onclick📂 SharePoint
+    </button>
+
+    branding.php
+        🎨 Branding
+    </button>
+
+    settings.php
+        ⚙ Settings
+    </button>
+
+    <button
+        class="logout"
+        </button>
+
+</div>
+
+<!-- PAGE CONTENT -->
 
 <div class="content">
 
     <h1>Departments</h1>
 
+    <br>
+
     <div class="card">
 
-        <form method="post">
+        <h3>Add Department</h3>
 
-            <h3>Add Department</h3>
+        <br>
+
+        <form method="POST">
 
             <input
                 type="text"
@@ -138,8 +242,12 @@ button{
 
             <br><br>
 
-            <button type="submit">
+            <button
+                type="submit"
+                class="submit-btn">
+
                 Add Department
+
             </button>
 
         </form>
