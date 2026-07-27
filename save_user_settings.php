@@ -9,15 +9,18 @@ if (!isset($_SESSION['user_id'])) {
 
 $userId = $_SESSION['user_id'];
 
-$theme = $_POST['theme'] ?? 'system';
-$responseStyle = $_POST['response_style'] ?? 'balanced';
+$theme =
+$_POST['theme'] ?? 'system';
+
+$responseStyle =
+$_POST['response_style'] ?? 'balanced';
 
 $stmt = $conn->prepare("
-    UPDATE users
-    SET
-        theme = ?,
-        response_style = ?
-    WHERE id = ?
+UPDATE users
+SET
+    theme = ?,
+    response_style = ?
+WHERE id = ?
 ");
 
 $stmt->bind_param(
@@ -29,6 +32,4 @@ $stmt->bind_param(
 
 $stmt->execute();
 
-header("Location: user_settings.php?updated=1");
-exit;
-
+echo "success";

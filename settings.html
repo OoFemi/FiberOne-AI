@@ -1,273 +1,184 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Atlas AI Settings</title>
+<title>Atlas AI - User Settings</title>
 
 <style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
 
 body{
     font-family:Segoe UI,sans-serif;
     background:#f4f6f9;
-    padding:30px;
+    padding:40px;
 }
 
 .container{
-    max-width:700px;
+    max-width:800px;
     margin:auto;
-    background:white;
+    background:#ffffff;
+    border-radius:12px;
     padding:30px;
-    border-radius:10px;
-    box-shadow:0 0 10px rgba(0,0,0,0.1);
-}
-
-.setting{
-    margin-bottom:30px;
+    box-shadow:0 2px 10px rgba(0,0,0,0.1);
 }
 
 h1{
     margin-bottom:30px;
+    font-size:32px;
 }
 
-h3{
+.section{
+    margin-bottom:30px;
+    border-bottom:1px solid #e5e7eb;
+    padding-bottom:20px;
+}
+
+.section h2{
+    font-size:20px;
+    margin-bottom:15px;
+}
+
+.info-row{
     margin-bottom:10px;
+    font-size:15px;
 }
 
-input[type=text]{
-    width:100%;
-    padding:10px;
-    border:1px solid #ccc;
-    border-radius:6px;
-}
-
-button{
-    padding:12px 20px;
-    background:#4da3ff;
-    color:white;
-    border:none;
-    border-radius:6px;
+label{
+    display:block;
+    margin-bottom:10px;
     cursor:pointer;
 }
 
+input[type="radio"]{
+    margin-right:8px;
+}
+
+button{
+    background:#4da3ff;
+    color:white;
+    border:none;
+    padding:12px 25px;
+    border-radius:8px;
+    cursor:pointer;
+    font-size:14px;
+}
+
 button:hover{
-    background:#2f89ee;
+    background:#2578d8;
 }
 
 .back-link{
     display:inline-block;
     margin-top:20px;
+    color:#4da3ff;
+    text-decoration:none;
+}
+
+.back-link:hover{
+    text-decoration:underline;
 }
 
 </style>
-
 </head>
 
 <body>
 
 <div class="container">
 
-<h1>⚙ User Settings</h1>
+    <h1>⚙ User Settings</h1>
 
-<div class="setting">
+    <div class="section">
 
-<h3>👤 Profile Name</h3>
+        <h2>Account Information</h2>
 
-<label>Name</label>
+        <div class="info-row">
+            <strong>Username:</strong> abb
+        </div>
 
-<input
-    id="profileName"
-    readonly>
+        <div class="info-row">
+            <strong>Department:</strong> IT
+        </div>
 
+        <div class="info-row">
+            <strong>Role:</strong> User
+        </div>
 
+        <div class="info-row">
+            <strong>Last Login:</strong> 27-Jul-2026 09:15
+        </div>
 
-<br><br>
+    </div>
 
-<label>Department</label>
+    <div class="section">
 
-<input
-    id="userGroup"
-    readonly>
-``
+        <h2>Theme</h2>
 
+        <label>
+            <input type="radio" name="theme" value="light">
+            Light
+        </label>
+
+        <label>
+            <input type="radio" name="theme" value="dark">
+            Dark
+        </label>
+
+        <label>
+            <input type="radio" name="theme" value="system" checked>
+            System Default
+        </label>
+
+    </div>
+
+    <div class="section">
+
+        <h2>AI Response Style</h2>
+
+        <label>
+            <input type="radio" name="style" value="concise">
+            Concise
+        </label>
+
+        <label>
+            <input type="radio" name="style" value="balanced" checked>
+            Balanced
+        </label>
+
+        <label>
+            <input type="radio" name="style" value="detailed">
+            Detailed
+        </label>
+
+    </div>
+
+    <div class="section">
+
+        <h2>About Atlas AI</h2>
+
+        <p>Version: 1.0.0</p>
+        <br>
+        <p>Powered by Atlas Support</p>
+
+    </div>
+
+    <button>
+        Save Settings
+    </button>
+
+    <br><br>
+
+    <a href="chat.html" class="back-link">
+        ← Back to Chat
+    </a>
 
 </div>
-
-<div class="setting">
-
-<h3>🎨 Theme</h3>
-
-<label>
-<input
-type="radio"
-name="theme"
-value="dark">
-Dark Mode
-</label>
-
-<br><br>
-
-<label>
-<input
-type="radio"
-name="theme"
-value="light">
-Light Mode
-</label>
-
-</div>
-
-<div class="setting">
-
-<h3>💬 Chat History</h3>
-
-<label>
-
-<input
-type="checkbox"
-id="chatHistory">
-
-Enable Chat History
-
-</label>
-
-<br><br>
-
-<button onclick="clearHistory()">
-Clear Chat History
-</button>
-
-</div>
-
-<button onclick="saveSettings()">
-Save Settings
-</button>
-
-<br><br>
-
-<a
-class="back-link"
-href="chat.html">
-
-← Back to Chat
-
-</a>
-
-</div>
-
-<script>
-
-function loadSettings(){
-
-    document.getElementById(
-        "profileName"
-    ).value =
-
-    localStorage.getItem(
-        "profileName"
-    ) || "";
-
-    const theme =
-    localStorage.getItem(
-        "theme"
-    ) || "dark";
-
-    document.querySelector(
-        `input[value="${theme}"]`
-    ).checked = true;
-
-    document.getElementById(
-        "chatHistory"
-    ).checked =
-
-    localStorage.getItem(
-        "chatHistory"
-    ) === "true";
-
-}
-
-function saveSettings(){
-
-    localStorage.setItem(
-        "profileName",
-        document.getElementById(
-            "profileName"
-        ).value
-    );
-
-    const theme =
-    document.querySelector(
-        'input[name="theme"]:checked'
-    ).value;
-
-    localStorage.setItem(
-        "theme",
-        theme
-    );
-
-    localStorage.setItem(
-        "chatHistory",
-        document.getElementById(
-            "chatHistory"
-        ).checked
-    );
-
-    alert(
-        "Settings Saved Successfully"
-    );
-
-}
-
-function clearHistory(){
-
-    localStorage.removeItem(
-        "savedChat"
-    );
-
-    alert(
-        "Chat History Cleared"
-    );
-
-}
-
-loadSettings();
-
-
-
-
-
-
-fetch("get_session.php")
-.then(response => response.json())
-.then(data => {
-
-    if(data.logged_in){
-
-        document
-        .getElementById("profileName")
-        .value = data.name;
-
-        document
-        .getElementById("userEmail")
-        .value = data.email;
-
-        document
-        .getElementById("userGroup")
-        .value = data.group_id;
-
-    }
-
-});
-
-
-
-
-</script>
-
-
 
 </body>
 </html>

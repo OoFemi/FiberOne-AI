@@ -1,12 +1,6 @@
-
-
-
-
-
 <?php
 
 ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
 session_start();
@@ -20,8 +14,7 @@ require_once 'db.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-    $department =
-        trim($_POST["department_name"]);
+    $department = trim($_POST["department_name"]);
 
     if (!empty($department)) {
 
@@ -43,12 +36,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             mkdir($folder, 0775, true);
         }
 
-        $stmt =
-            $conn->prepare(
-                "INSERT INTO departments
-                (department_name,group_id,folder_name)
-                VALUES (?,?,?)"
-            );
+        $stmt = $conn->prepare(
+            "INSERT INTO departments
+            (department_name,group_id,folder_name)
+            VALUES (?,?,?)"
+        );
 
         $stmt->bind_param(
             "sss",
@@ -64,94 +56,133 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     exit;
 }
 
-$result =
-$conn->query(
-"SELECT *
- FROM departments
- ORDER BY department_name"
+$result = $conn->query(
+"
+SELECT *
+FROM departments
+ORDER BY department_name
+"
 );
 
 ?>
 
 <!DOCTYPE html>
 <html>
-
 <head>
 
 <meta charset="UTF-8">
-
 <title>Departments</title>
 
-<link rel="stylesheet" href="dashboard.css">
+admin.css
+
+<style>
+
+.card{
+    background:white;
+    padding:20px;
+    border-radius:10px;
+    margin-bottom:20px;
+    box-shadow:0 2px 8px rgba(0,0,0,.1);
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+    background:white;
+}
+
+th{
+    background:#4da3ff;
+    color:white;
+    text-align:left;
+    padding:12px;
+}
+
+td{
+    padding:12px;
+    border-bottom:1px solid #eee;
+}
+
+input{
+    padding:10px;
+    width:250px;
+}
+
+button{
+    padding:10px 15px;
+}
+
+</style>
 
 </head>
 
 <body>
 
-
+<?php include 'sidebar.php'; ?>
 
 <div class="content">
 
-<h1>Departments</h1>
+    <h1>Departments</h1>
 
-<div class="card">
+    <div class="card">
 
-<form method="post">
+        <form method="post">
 
-<h3>Add Department</h3>
+            <h3>Add Department</h3>
 
-<input
-    name="department_name"
-    placeholder="Department Name"
-    required>
+            <input
+                type="text"
+                name="department_name"
+                placeholder="Department Name"
+                required>
 
-<br><br>
+            <br><br>
 
-<button type="submit">
-    Add Department
-</button>
+            <button type="submit">
+                Add Department
+            </button>
 
-</form>
+        </form>
 
-</div>
+    </div>
 
-<table>
+    <table>
 
-<thead>
+        <thead>
 
-<tr>
-<th>ID</th>
-<th>Department</th>
-<th>Group ID</th>
-<th>Folder</th>
-<th>Status</th>
-</tr>
+            <tr>
+                <th>ID</th>
+                <th>Department</th>
+                <th>Group ID</th>
+                <th>Folder</th>
+                <th>Status</th>
+            </tr>
 
-</thead>
+        </thead>
 
-<tbody>
+        <tbody>
 
-<?php while($row = $result->fetch_assoc()) { ?>
+        <?php while($row = $result->fetch_assoc()) { ?>
 
-<tr>
+            <tr>
 
-<td><?= $row["id"] ?></td>
+                <td><?= $row["id"] ?></td>
 
-<td><?= $row["department_name"] ?></td>
+                <td><?= htmlspecialchars($row["department_name"]) ?></td>
 
-<td><?= $row["group_id"] ?></td>
+                <td><?= htmlspecialchars($row["group_id"]) ?></td>
 
-<td><?= $row["folder_name"] ?></td>
+                <td><?= htmlspecialchars($row["folder_name"]) ?></td>
 
-<td><?= $row["status"] ?></td>
+                <td><?= htmlspecialchars($row["status"]) ?></td>
 
-</tr>
+            </tr>
 
-<?php } ?>
+        <?php } ?>
 
-</tbody>
+        </tbody>
 
-</table>
+    </table>
 
 </div>
 
