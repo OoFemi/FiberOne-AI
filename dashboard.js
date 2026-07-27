@@ -1,387 +1,185 @@
 console.log("dashboard.js loaded");
 
-/* Navigation */
+/* -----------------------------
+   Navigation
+----------------------------- */
 
-function showSection(section){
+function showSection(sectionId) {
 
-    document
-    .querySelectorAll(".section")
-    .forEach(item=>{
-        item.classList.remove("active");
+    document.querySelectorAll(".section").forEach(section => {
+        section.classList.remove("active");
     });
 
-    const page =
-    document.getElementById(section);
+    document.querySelectorAll(".sidebar-menu button").forEach(button => {
+        button.classList.remove("active");
+    });
 
-    if(page){
-        page.classList.add("active");
+    const section =
+        document.getElementById(sectionId);
+
+    if (section) {
+        section.classList.add("active");
     }
-
 }
 
-/* Users */
+/* -----------------------------
+   Load Users
+----------------------------- */
 
-async function loadUsers(){
+async function loadUsers() {
 
-    try{
+    try {
 
         const response =
-        await fetch("get_users.php");
+            await fetch("get_users.php");
 
         const users =
-        await response.json();
+            await response.json();
 
-        const userCount =
-        document.getElementById("userCount");
-
-        if(userCount){
-            userCount.innerText =
-            "Showing " +
-            users.length +
-            " users";
-        }
-
-        const totalUsers =
-        document.getElementById("totalUsers");
-
-        if(totalUsers){
-            totalUsers.innerText =
-            users.length;
-        }
-
-        const totalAdmins =
-        document.getElementById("totalAdmins");
-
-        if(totalAdmins){
-            totalAdmins.innerText =
-            users.filter(
-                u => u.role === "admin"
-            ).length;
-        }
-
-        const activeUsers =
-        document.getElementById("activeUsers");
-
-        if(activeUsers){
-            activeUsers.innerText =
-            users.filter(
-                u => u.status === "Active"
-            ).length;
-        }
+        console.log("Users:", users);
 
         const table =
-        document.getElementById("userTable");
+            document.getElementById("userTable");
 
-        if(!table){
+        if (!table) {
             return;
         }
 
         table.innerHTML = "";
 
-        users.forEach(user=>{
+        const count =
+            document.getElementById("userCount");
 
-            table.innerHTML += `
-            <tr>
-                <td>${user.id || ""}</td>
-                <td>${user.user_id || ""}</td>
-                <td>${user.first_name || ""}</td>
-                <td>${user.last_name || ""}</td>
-                <td>${user.email || ""}</td>
-                <td>${user.username || ""}</td>
-                <td>${user.role || ""}</td>
-                <td>${user.group_id || ""}</td>
-                <td>${user.department || ""}</td>
-                <td>${user.status || ""}</td>
-                <td>${user.created_at || ""}</td>
-                <td>${user.last_login || ""}</td>
-                
-<td>
-    <button
-        class="action edit"
-        onclick="editUser(${user.id})">
-        Edit
-    </button>
+        if (count) {
+            count.innerText =
+                `Showing ${users.length} active identities`;
+        }
 
-    <button
-        class="action reset"
-        onclick="resetPassword(${user.id})">
-        Reset
-    </button>
+        const dashboardUsers =
+            document.getElementById("dashboardUsers");
 
-    <button
-        class="action delete"
-        onclick="deleteUser(${user.id})">
-        Delete
-    </button>
-</td>
-            </tr>
+        if (dashboardUsers) {
+            dashboardUsers.innerText =
+                users.length;
+        }
+
+        const dashboardAdmins =
+            document.getElementById("dashboardAdmins");
+
+        if (dashboardAdmins) {
+            dashboardAdmins.innerText =
+                users.filter(
+                    user => user.role === "admin"
+                ).length;
+        }
+
+        users.forEach(user => {
+
+    const row = `
+        <tr>
+            <td>${user.id || ""}</td>
+            <td>${user.user_id || ""}</td>
+            <td>${user.first_name || ""}</td>
+            <td>${user.last_name || ""}</td>
+            <td>${user.email || ""}</td>
+            <td>${user.username || ""}</td>
+            <td>${user.role || ""}</td>
+            <td>${user.group_id || ""}</td>
+            <td>${user.department || ""}</td>
+            <td>${user.status || ""}</td>
+            <td>
+                <button onclick="editUser(${user.id})">
+                    Edit
+                </button>
+
+                <button onclick="deleteUser(${user.id})">
+                    Delete
+                </button>
+            </td>
+        </tr>
+    `;
+
+    table.insertAdjacentHTML(
+        "beforeend",
+        row
+    );
+
+});
+
+    }
+    catch(error) {
+
+        console.error(
+            "Failed loading users:",
+            error
+        );
+
+    }
+
+}
+
+/* -----------------------------
+   Departments
+----------------------------- */
+
+async function loadDepartments() {
+
+    try {
+
+        const response =
+            await fetch(
+                "get_departments.php"
+            );
+
+        const departments =
+            await response.json();
+
+        console.log(
+            "Departments:",
+            departments
+        );
+
+        const dropdown =
+            document.getElementById(
+                "department"
+            );
+
+        if (!dropdown) {
+            return;
+        }
+
+        dropdown.innerHTML = "";
+
+        departments.forEach(dept => {
+
+            dropdown.innerHTML += `
+                <option value="${dept.group_id}">
+                    ${dept.department_name}
+                </option>
             `;
 
         });
 
     }
-    catch(error){
+    catch(error) {
 
-        console.error(error);
-
-    }
-
-}
-
-async function createUser(){
-
-    try{
-
-const departmentDropdown =
-document.getElementById("department");
-
-const departmentName =
-departmentDropdown.options[
-departmentDropdown.selectedIndex
-].text;
-
-        const response =
-        await fetch(
-            "create_user.php",
-            {
-                method:"POST",
-                headers:{
-                    "Content-Type":"application/json"
-                },
-                body:JSON.stringify({
-
-                    first_name:
-                    document.getElementById("firstName").value,
-
-                    last_name:
-                    document.getElementById("lastName").value,
-
-                    email:
-                    document.getElementById("email").value,
-
-                    username:
-                    document.getElementById("newUsername").value,
-
-                    password:
-                    document.getElementById("newPassword").value,
-
-                    role:
-                    document.getElementById("newRole").value,
-
-                    group_id:
-                    document.getElementById("department").value,
-                   department:departmentName,
-
-                })
-            }
-        );
-
-        const result =
-        await response.json();
-
-        if(result.success){
-
-            alert("User Created");
-
-            loadUsers();
-
-        }
-
-    }
-    catch(error){
-
-        console.error(error);
-
-        alert("Error creating user");
-
-    }
-
-}
-
-/* Branding */
-
-async function saveAISettings(){
-
-    try{
-
-        const ai_name =
-        document.getElementById(
-            "brandingAIName"
-        ).value;
-
-        const response =
-        await fetch(
-            "save_settings.php",
-            {
-                method:"POST",
-                headers:{
-                    "Content-Type":"application/json"
-                },
-                body:JSON.stringify({
-                    ai_name
-                })
-            }
-        );
-
-        const result =
-        await response.json();
-
-        if(result.success){
-
-            alert(
-                "AI Settings Saved"
-            );
-
-        }
-
-    }
-    catch(error){
-
-        console.error(error);
-
-        alert(
-            "Failed to save AI Settings"
+        console.error(
+            "Department load failed:",
+            error
         );
 
     }
 
 }
 
-function saveCompanySettings(){
-
-    alert(
-        "Company Settings Saved"
-    );
-
-}
-
-function saveColours(){
-
-    alert(
-        "Colours Saved"
-    );
-
-}
-
-function uploadLogo(){
-
-    alert(
-        "Logo Upload Feature Coming Soon"
-    );
-
-}
-
-/* Settings */
-
-function saveSettings(){
-
-    alert(
-        "Settings Saved"
-    );
-
-}
-
-function changePassword(){
-
-    alert(
-        "Password Changed"
-    );
-
-}
-
-function saveEmailSettings(){
-
-    alert(
-        "Email Settings Saved"
-    );
-
-}
-
-function sendTestEmail(){
-
-    alert(
-        "Test Email Sent"
-    );
-
-}
-
-function createBackup(){
-
-    alert(
-        "Backup Created"
-    );
-
-}
-
-function restoreBackup(){
-
-    alert(
-        "Restore Started"
-    );
-
-}
-
-function viewLogs(){
-
-    alert(
-        "View Logs"
-    );
-
-}
-
-function exportLogs(){
-
-    alert(
-        "Logs Exported"
-    );
-
-}
-
-/* Startup */
-
-document.addEventListener(
-    "DOMContentLoaded",
-    function(){
-
-        console.log("DOM loaded");
-
-        loadUsers();
-        loadDepartments();
-        loadDepartmentFilter();
-        const search =
-        document.getElementById(
-            "searchUser"
-        );
-
-        if(search){
-
-            search.addEventListener(
-                "keyup",
-                function(){
-
-                    const value =
-                    this.value
-                    .toLowerCase();
-
-                    document
-                    .querySelectorAll(
-                        "#userTable tr"
-                    )
-                    .forEach(row=>{
-
-                        row.style.display =
-                        row.innerText
-                        .toLowerCase()
-                        .includes(value)
-                        ? ""
-                        : "none";
-
-                     async function loadDepartmentFilter() {
+async function loadDepartmentFilter() {
 
     try {
 
         const response =
-            await fetch("get_departments.php");
+            await fetch(
+                "get_departments.php"
+            );
 
         const departments =
             await response.json();
@@ -408,29 +206,104 @@ document.addEventListener(
     }
     catch(error) {
 
-        console.error(error);
+        console.error(
+            "Department filter failed:",
+            error
+        );
 
     }
 
 }
 
+/* -----------------------------
+   Create User
+----------------------------- */
 
+async function createUser() {
 
-                    });
+    try {
 
+        const deptDropdown =
+            document.getElementById("department");
+
+        const departmentName =
+            deptDropdown.options[
+                deptDropdown.selectedIndex
+            ].text;
+
+        const response =
+            await fetch(
+                "create_user.php",
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type":
+                            "application/json"
+                    },
+                    body: JSON.stringify({
+                        first_name:
+                            document.getElementById("firstName").value,
+
+                        last_name:
+                            document.getElementById("lastName").value,
+
+                        email:
+                            document.getElementById("email").value,
+
+                        username:
+                            document.getElementById("newUsername").value,
+
+                        password:
+                            document.getElementById("newPassword").value,
+
+                        role:
+                            document.getElementById("newRole").value,
+
+                        group_id:
+                            deptDropdown.value,
+
+                        department:
+                            departmentName
+                    })
                 }
+            );
+
+        const result =
+            await response.json();
+
+        if (result.success) {
+
+            alert("User Created");
+
+            loadUsers();
+
+        } else {
+
+            alert(
+                result.message ||
+                "Failed to create user"
             );
 
         }
 
     }
-);
+    catch(error) {
 
+        console.error(error);
 
+        alert(
+            "Error creating user"
+        );
 
+    }
 
+}
 
-function editUser(id){
+/* -----------------------------
+   Edit User
+----------------------------- */
+
+function editUser(id) {
 
     alert(
         "Edit User ID: " + id
@@ -438,46 +311,39 @@ function editUser(id){
 
 }
 
-function resetPassword(id){
+/* -----------------------------
+   Delete User
+----------------------------- */
 
-    alert(
-        "Reset Password for User ID: " + id
-    );
+async function deleteUser(id) {
 
-}
-
-
-
-async function deleteUser(id){
-
-    if(
-        !confirm(
-            "Delete this user?"
-        )
-    ){
+    if (!confirm(
+        "Delete this user?"
+    )) {
         return;
     }
 
-    try{
+    try {
 
         const response =
-        await fetch(
-            "delete_user.php",
-            {
-                method:"POST",
-                headers:{
-                    "Content-Type":"application/json"
-                },
-                body:JSON.stringify({
-                    id:id
-                })
-            }
-        );
+            await fetch(
+                "delete_user.php",
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type":
+                            "application/json"
+                    },
+                    body: JSON.stringify({
+                        id: id
+                    })
+                }
+            );
 
         const result =
-        await response.json();
+            await response.json();
 
-        if(result.success){
+        if (result.success) {
 
             alert(
                 "User Deleted"
@@ -485,7 +351,7 @@ async function deleteUser(id){
 
             loadUsers();
 
-        }else{
+        } else {
 
             alert(
                 result.message
@@ -494,7 +360,7 @@ async function deleteUser(id){
         }
 
     }
-    catch(error){
+    catch(error) {
 
         console.error(error);
 
@@ -506,54 +372,64 @@ async function deleteUser(id){
 
 }
 
+/* -----------------------------
+   User Search
+----------------------------- */
 
+function initialiseUserSearch() {
 
-async function loadDepartments() {
-
-    console.log("Loading departments");
-
-    try {
-
-        const response =
-            await fetch("get_departments.php");
-
-        const departments =
-            await response.json();
-
-        console.log(departments);
-
-        const dropdown =
-            document.getElementById("department");
-
-        if (!dropdown) {
-
-            console.log(
-                "Department dropdown not found"
-            );
-
-            return;
-        }
-
-        dropdown.innerHTML = "";
-
-        departments.forEach(dept => {
-
-            dropdown.innerHTML += `
-                <option value="${dept.group_id}">
-                    ${dept.department_name}
-                </option>
-            `;
-
-        });
-
-    }
-    catch(error) {
-
-        console.error(
-            "Department load failed",
-            error
+    const search =
+        document.getElementById(
+            "searchUser"
         );
 
+    if (!search) {
+        return;
     }
 
+    search.addEventListener(
+        "keyup",
+        function() {
+
+            const value =
+                this.value.toLowerCase();
+
+            document
+                .querySelectorAll(
+                    "#userTable tr"
+                )
+                .forEach(row => {
+
+                    row.style.display =
+                        row.innerText
+                            .toLowerCase()
+                            .includes(value)
+                            ? ""
+                            : "none";
+
+                });
+
+        }
+    );
+
 }
+
+/* -----------------------------
+   Startup
+----------------------------- */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function () {
+
+        console.log(
+            "DOM loaded"
+        );
+
+        loadUsers();
+        loadDepartments();
+        loadDepartmentFilter();
+        initialiseUserSearch();
+
+    }
+);
