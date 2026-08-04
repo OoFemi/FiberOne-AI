@@ -732,7 +732,7 @@ td {
 
         <div class="settings-container">
             <div class="settings-card">
-                <h3>?? Administrative Security</h3>
+                <h3> Administrative Security</h3>
                 <label>Current Master Password</label>
                 <input type="password" placeholder="••••••••">
                 <label>New Master Password</label>
@@ -743,7 +743,7 @@ td {
             </div>
 
             <div class="settings-card">
-                <h3>?? Mail Transport Agent (SMTP)</h3>
+                <h3> Mail Transport Agent (SMTP)</h3>
                 <label>SMTP Host Address</label>
                 <input type="text" value="smtp.enterprise.com">
                 <label>Port Protocol</label>
@@ -753,7 +753,7 @@ td {
             </div>
 
             <div class="settings-card">
-                <h3>?? Database & Storage Backups</h3>
+                <h3> Database & Storage Backups</h3>
                 <p class="info-text">Export immutable database SQL dumps and secure document file packages.</p>
                 <br>
                 <button class="btn-primary">Generate Master Backup</button>
@@ -761,15 +761,15 @@ td {
             </div>
 
             <div class="settings-card">
-                <h3>?? Core Diagnostic Telemetry</h3>
+                <h3> Core Diagnostic Telemetry</h3>
                 <p class="info-text"><strong>Atlas Version Engine:</strong> 1.0 Enterprise</p>
-                <p class="info-text"><strong>PHP Environment:</strong> <?php echo phpversion(); ?></p>
+<p class="info-text"><strong>PHP Environment:</strong> <?php echo phpversion(); ?></p>
                 <p class="info-text"><strong>MySQL Database State:</strong> <span style="color:#2E7D32; font-weight:600;">? Connected Securely</span></p>
                 <p class="info-text"><strong>Node Server Status:</strong> <span style="color:#2E7D32; font-weight:600;">? Fully Operational</span></p>
             </div>
 
             <div class="settings-card">
-                <h3>?? Comprehensive Audit Trail</h3>
+                <h3> Comprehensive Audit Trail</h3>
                 <p class="info-text">Inspect detailed cryptographic audit logs and access attempts.</p>
                 <br>
                 <button class="btn-primary">View Real-time Logs</button>
