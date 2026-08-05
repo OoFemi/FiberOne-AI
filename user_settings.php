@@ -45,7 +45,7 @@ if ($isLoggedIn) {
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Atlas AI - User Settings</title>
+<title>Fob AI - User Settings</title>
 
 <style>
 
@@ -207,10 +207,10 @@ Detailed
 
 <div class="section">
 
-<h2>About Atlas AI</h2>
+<h2>About Fob AI</h2>
 
 <p>Version: 1.0.0</p>
-<p>Powered by Atlas Support</p>
+<p>Powered by Fob Support</p>
 
 </div>
 

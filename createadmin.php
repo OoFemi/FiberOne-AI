@@ -6,7 +6,7 @@ $username = "admin";
 
 $passwordHash =
 password_hash(
-    "Atlas123!",
+    "Fob123!",
     PASSWORD_DEFAULT
 );
 

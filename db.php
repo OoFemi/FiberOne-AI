@@ -2,7 +2,7 @@
 
 $host = "localhost";
 $user = "atlasai";
-$pass = "AtlasAI123!";
+$pass = "FobAI123!";
 $db   = "atlas_ai";
 
 $conn = new mysqli(

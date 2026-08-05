@@ -1,5 +1,5 @@
 <?php
 
-echo "Atlas AI Server Working";
+echo "Fob AI Server Working";
 
 ?>

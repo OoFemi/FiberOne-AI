@@ -1,6 +1,6 @@
 <div class="sidebar">
 
-    <h2>Atlas AI</h2>
+    <h2>Fob AI</h2>
 
     dashboard.php
         📊 Dashboard

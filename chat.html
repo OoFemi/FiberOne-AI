@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Atlas AI Enterprise Dashboard</title>
+<title>Fob AI Enterprise Dashboard</title>
 <style>
 * {
     margin: 0;
@@ -416,7 +416,7 @@ body.light-mode .metric-card .value {
     <div class="nav-section">
         <div class="nav-label">Workspace</div>
         <button id="navChat" class="active" onclick="switchView('chatView')">
-            💬 Atlas AI Chat
+            💬 Fob AI Chat
         </button>
         <button id="navDashboard" onclick="switchView('dashboardView')">
             📊 Executive Dashboard
@@ -435,15 +435,15 @@ body.light-mode .metric-card .value {
     </div>
 
     <div class="sidebar-footer">
-        <strong>Atlas AI v1.0 Enterprise</strong><br>
-        Powered by Atlas Support
+        <strong>Fob AI v1.0 Enterprise</strong><br>
+        Powered by Fob Support
     </div>
 </div>
 
 <!-- MAIN CONTAINER -->
 <div class="main">
     <div class="header">
-        <h1 id="aiTitle">Atlas AI Enterprise Suite</h1>
+        <h1 id="aiTitle">Fob AI Enterprise Suite</h1>
         <div class="header-badge" id="headerWorkspaceBadge">Secure Environment</div>
     </div>
 
@@ -452,7 +452,7 @@ body.light-mode .metric-card .value {
         <div id="chatView" class="app-view active">
             <div id="chat" class="chat"></div>
             <div class="input-area">
-                <input id="question" placeholder="Ask Atlas AI anything..." onkeydown="if(event.key==='Enter') send()">
+                <input id="question" placeholder="Ask Fob AI anything..." onkeydown="if(event.key==='Enter') send()">
                 <button onclick="send()">Send</button>
                 <button class="clear-btn" onclick="clearChat()">🗑️  Clear</button>
             </div>
@@ -477,8 +477,8 @@ body.light-mode .metric-card .value {
                 </div>
 
                 <div class="panel-card">
-                    <h2>Atlas Support Operations Overview</h2>
-                    <p>Welcome to the Atlas AI Enterprise Management Console. This environment routes real-time context-aware webhook requests securely across internal cluster endpoints. Use the sidebar navigation to transition between the active AI chat session, administrative parameters, and user account configurations.</p>
+                    <h2>Fob Support Operations Overview</h2>
+                    <p>Welcome to the Fob AI Enterprise Management Console. This environment routes real-time context-aware webhook requests securely across internal cluster endpoints. Use the sidebar navigation to transition between the active AI chat session, administrative parameters, and user account configurations.</p>
                 </div>
             </div>
         </div>
@@ -497,7 +497,7 @@ function switchView(viewId) {
     
     if(viewId === 'chatView') {
         document.getElementById('navChat').classList.add('active');
-        document.getElementById('aiTitle').textContent = "Atlas AI Enterprise Suite";
+        document.getElementById('aiTitle').textContent = "Fob AI Enterprise Suite";
     } else if(viewId === 'dashboardView') {
         document.getElementById('navDashboard').classList.add('active');
         document.getElementById('aiTitle').textContent = "Executive Dashboard";
@@ -537,10 +537,10 @@ window.onload = function(){
             const name = data.logged_in ? data.name : "there";
             const welcome = addMessage(
                 "👋 Welcome back, " + name + ".<br><br>" +
-                "I am Olaah, your Atlas AI assistant.<br><br>" +
+                "I am Olaah, your Fob AI assistant.<br><br>" +
                 "How can I help you today?<br><br>" +
                 "<strong>Try asking:</strong><br><br>" +
-                "📘 Tell me about Atlas Support Limited<br>" +
+                "📘 Tell me about Fob Support Limited<br>" +
                 "✉️  How can I access dualmon<br>" +
                 "📊 Generate a report<br>" +
                 "🧠 Explain a concept",
@@ -629,7 +629,7 @@ async function send(){
     } catch(error) {
         console.error(error);
         typing.remove();
-        addMessage("❌ Unable to reach Atlas AI server.", "ai");
+        addMessage("❌ Unable to reach Fob AI server.", "ai");
     }
 }
 

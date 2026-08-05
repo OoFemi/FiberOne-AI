@@ -32,7 +32,7 @@ $user = $stmt->get_result()->fetch_assoc();
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Atlas AI - User Settings</title>
+<title>Fob AI - User Settings</title>
 
 <style>
 
@@ -227,7 +227,7 @@ h2{
 
         <div class="section">
 
-            <h3>About Atlas AI</h3>
+            <h3>About Fob AI</h3>
 
             <p><strong>Version:</strong> 1.0.0</p>
             <p><strong>Build:</strong> 2026.07.26</p>

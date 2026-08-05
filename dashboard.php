@@ -51,7 +51,7 @@ if ($folders) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Atlas AI | Enterprise Administration</title>
+    <title>Fob AI | Enterprise Administration</title>
     <style>
         :root {
             --primary-dark: #0A192F;
@@ -391,7 +391,7 @@ td {
 <!-- SIDEBAR NAVIGATION -->
 <div class="sidebar">
     <div class="sidebar-brand">
-        <h2>🛡️ Atlas AI Admin</h2>
+        <h2>🛡️ Fob AI Admin</h2>
     </div>
     
     <div class="sidebar-menu">
@@ -416,7 +416,7 @@ td {
     <div id="dashboard" class="section active">
         <div class="page-header">
             <h1>Dashboard Overview</h1>
-            <p>Real-time analytics and telemetry of your Atlas AI core.</p>
+            <p>Real-time analytics and telemetry of your Fob AI core.</p>
         </div>
 
         <div class="stats">
@@ -695,16 +695,16 @@ td {
             <div class="branding-card">
                 <h3>AI Agent Persona</h3>
                 <label>Assistant Identity Name</label>
-                <input id="brandingAIName" value="Atlas AI">
+                <input id="brandingAIName" value="Fob AI">
                 <label>Default Welcome Greeting</label>
-                <textarea id="welcomeMessage" rows="3">Welcome to Atlas Enterprise Intelligence. I am your secure assistant.</textarea>
+                <textarea id="welcomeMessage" rows="3">Welcome to Fob Enterprise Intelligence. I am your secure assistant.</textarea>
                 <button class="btn-primary">Save Persona Profile</button>
             </div>
 
             <div class="branding-card">
                 <h3>Corporate Directory Info</h3>
                 <label>Organization Legal Entity</label>
-                <input id="companyName" value="Atlas Global Support">
+                <input id="companyName" value="Fob Global Support">
                 <label>Enterprise Support Desk Email</label>
                 <input id="supportEmail" value="support@enterprise.local">
                 <label>Primary Portal Domain</label>
@@ -762,7 +762,7 @@ td {
 
             <div class="settings-card">
                 <h3> Core Diagnostic Telemetry</h3>
-                <p class="info-text"><strong>Atlas Version Engine:</strong> 1.0 Enterprise</p>
+                <p class="info-text"><strong>Fob Version Engine:</strong> 1.0 Enterprise</p>
 <p class="info-text"><strong>PHP Environment:</strong> <?php echo phpversion(); ?></p>
                 <p class="info-text"><strong>MySQL Database State:</strong> <span style="color:#2E7D32; font-weight:600;">? Connected Securely</span></p>
                 <p class="info-text"><strong>Node Server Status:</strong> <span style="color:#2E7D32; font-weight:600;">? Fully Operational</span></p>
